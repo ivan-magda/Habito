@@ -3,4 +3,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+
+    <dimen name="list_item_padding_vertical">12dp</dimen>
+    <dimen name="list_item_padding_horizontal">16dp</dimen>
+    <dimen name="list_item_min_width">120dp</dimen>
+    <dimen name="list_item_max_width">160dp</dimen>
+    <dimen name="list_item_between_padding">4dp</dimen>
 </resources>
