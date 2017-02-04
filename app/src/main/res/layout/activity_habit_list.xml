@@ -38,4 +38,13 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_plus" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
 </android.support.design.widget.CoordinatorLayout>

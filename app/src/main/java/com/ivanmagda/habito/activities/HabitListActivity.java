@@ -14,16 +14,25 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.adapters.HabitsAdapter;
+import com.ivanmagda.habito.models.HabitRecord;
+import com.ivanmagda.habito.utils.FirebaseUtils;
 import com.ivanmagda.habito.view.GridSpacingItemDecoration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,8 +52,14 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     @BindView(R.id.fab)
     FloatingActionButton floatingActionButton;
 
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
     private HabitsAdapter mHabitsAdapter;
 
+    // Firebase instance variables.
+    private Query mUserHabitsQuery;
+    private ValueEventListener mValueEventListener;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -60,9 +75,10 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
-        initializeFirebase();
+        initFirebase();
 
-        mHabitsAdapter = new HabitsAdapter(this);
+        mHabitsAdapter = new HabitsAdapter();
+        mHabitsAdapter.setClickListener(this);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, NUM_OF_COLUMNS));
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(NUM_OF_COLUMNS,
                 SPACE_BETWEEN_ITEMS, true));
@@ -103,7 +119,11 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     @Override
     protected void onPause() {
         super.onPause();
-        if (mAuthStateListener != null) mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        if (mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
+        detachDatabaseReadListener();
+        mHabitsAdapter.clear();
     }
 
     @Override
@@ -135,13 +155,12 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         }
     }
 
-    private void initializeFirebase() {
+    private void initFirebase() {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                if (firebaseAuth.getCurrentUser() != null) {
                     onSignedInInitialize();
                 } else {
                     onSignedOutCleanup();
@@ -159,12 +178,6 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         };
     }
 
-    private void onSignedInInitialize() {
-    }
-
-    private void onSignedOutCleanup() {
-    }
-
     private void signOut() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.sign_out)
@@ -178,6 +191,59 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    private void onSignedInInitialize() {
+        detachDatabaseReadListener();
+        mUserHabitsQuery = FirebaseUtils.getCurrentUserHabitsQuery();
+        attachDatabaseReadListener();
+    }
+
+    private void onSignedOutCleanup() {
+        mHabitsAdapter.clear();
+        detachDatabaseReadListener();
+    }
+
+    private void attachDatabaseReadListener() {
+        if (mValueEventListener != null) return;
+
+        showProgressIndicator();
+
+        mValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<HabitRecord> records = new ArrayList<>((int) dataSnapshot.getChildrenCount());
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    records.add(data.getValue(HabitRecord.class));
+                }
+                hideProgressIndicator();
+                mHabitsAdapter.setHabitRecords(records);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                hideProgressIndicator();
+                Log.e(TAG, "Cancelled to query habits: " + databaseError.toString());
+            }
+        };
+
+        mUserHabitsQuery.addValueEventListener(mValueEventListener);
+    }
+
+    private void detachDatabaseReadListener() {
+        if (mValueEventListener != null) {
+            mUserHabitsQuery.removeEventListener(mValueEventListener);
+            mValueEventListener = null;
+        }
+        mUserHabitsQuery = null;
+    }
+
+    private void showProgressIndicator() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressIndicator() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
 }
