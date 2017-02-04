@@ -11,9 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.ivanmagda.habito.view.GridSpacingItemDecoration;
-import com.ivanmagda.habito.model.HabitsAdapter;
 import com.ivanmagda.habito.R;
+import com.ivanmagda.habito.adapters.HabitsAdapter;
+import com.ivanmagda.habito.view.GridSpacingItemDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

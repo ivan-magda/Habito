@@ -15,5 +15,6 @@
     <string name="off">Off</string>
     <string name="color_picker_default_title">Change color</string>
     <string name="spinner_prompt">Reset to zero every</string>
+    <string name="toast_empty_name">Enter habit name</string>
 
 </resources>

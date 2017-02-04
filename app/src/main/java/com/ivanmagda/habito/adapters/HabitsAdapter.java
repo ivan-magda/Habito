@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.model;
+package com.ivanmagda.habito.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

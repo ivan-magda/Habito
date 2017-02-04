@@ -1,22 +1,28 @@
 package com.ivanmagda.habito.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ivanmagda.habito.R;
-import com.ivanmagda.habito.model.ResetFrequency;
+import com.ivanmagda.habito.models.HabitRecord;
+import com.ivanmagda.habito.models.ReminderTime;
+import com.ivanmagda.habito.models.ResetFrequency;
 import com.ivanmagda.habito.pickers.TimePickerFragment;
 
 import java.util.Arrays;
@@ -31,11 +37,25 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
 
     private static final String TAG = "EditHabitActivity";
 
-    @BindView(R.id.tv_reminder_time)
-    TextView reminderTimeTextView;
+    @BindView(R.id.et_habit_name)
+    EditText nameEditText;
 
     @BindView(R.id.spinner_reset)
     Spinner resetFrequencySpinner;
+
+    @BindView(R.id.et_habit_target)
+    EditText targetEditText;
+
+    @BindView(R.id.tv_reminder_time)
+    TextView reminderTimeTextView;
+
+    // Firebase instance variables
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mHabitsDatabaseReference;
+
+    private int mSelectedColor = Color.WHITE;
+    private ResetFrequency mResetFrequency = new ResetFrequency();
+    private ReminderTime mReminderTime = new ReminderTime();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +76,7 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
                 onBackPressed();
                 return true;
             case R.id.action_save:
-                Snackbar.make(findViewById(R.id.activity_edit_habit), "Saved", Snackbar.LENGTH_SHORT).show();
+                createNew();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -73,20 +93,19 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
             actionBar.setTitle(R.string.activity_create_name);
         }
 
+        initializeFirebase();
+
         List<String> resetFrequencies = Arrays.asList(ResetFrequency.ALL);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 resetFrequencies);
         resetFrequencySpinner.setAdapter(adapter);
         resetFrequencySpinner.setPrompt(getResources().getString(R.string.spinner_prompt));
-        resetFrequencySpinner.setSelection(resetFrequencies.indexOf(ResetFrequency.NEVER));
+        resetFrequencySpinner.setSelection(resetFrequencies.indexOf(mResetFrequency.getTypeName()));
         resetFrequencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // On selecting a spinner item
-                String item = parent.getItemAtPosition(position).toString();
-
-                // Showing selected spinner item
-                Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+                String selected = parent.getItemAtPosition(position).toString();
+                mResetFrequency.setType(selected);
             }
 
             @Override
@@ -95,21 +114,13 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
         });
     }
 
-    @OnClick(R.id.tv_reminder_time)
-    void onDateSpinnerClick() {
-        int defaultHour = 8;
-        int defaultMin = 0;
-
-//        if (modifiedHabit.hasReminder()) {
-//            Reminder reminder = modifiedHabit.getReminder();
-//            defaultHour = reminder.getHour();
-//            defaultMin = reminder.getMinute();
-//        }
-
-        showTimePicker(defaultHour, defaultMin);
+    private void initializeFirebase() {
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mHabitsDatabaseReference = mFirebaseDatabase.getReference().child("habits");
     }
 
-    private void showTimePicker(int defaultHour, int defaultMin) {
+    @OnClick(R.id.tv_reminder_time)
+    void onDateSpinnerClick() {
         TimePickerFragment timePickerFragment = new TimePickerFragment();
         timePickerFragment.setOnTimeSetListener(this);
         timePickerFragment.show(getSupportFragmentManager(), "TimePicker");
@@ -123,7 +134,8 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
         colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
             @Override
             public void onChooseColor(int position, int color) {
-                Log.d(TAG, "Choose color: " + color + " at position: " + position);
+                mSelectedColor = color;
+                nameEditText.setTextColor(color);
             }
 
             @Override
@@ -135,7 +147,41 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Log.d(TAG, "Selected time: " + hourOfDay + " : " + minute);
-        reminderTimeTextView.setText(String.valueOf(hourOfDay) + ":" + String.valueOf(minute));
+        mReminderTime.setHour(hourOfDay);
+        mReminderTime.setMinutes(minute);
+        reminderTimeTextView.setText(mReminderTime.getTimeString());
     }
+
+    private void createNew() {
+        checkInput();
+
+        long now = System.currentTimeMillis();
+        String userId = "Kc1E6kPynflmh34hvmJ";
+        String name = nameEditText.getText().toString().trim();
+
+        String targetString = targetEditText.getText().toString().trim();
+        int target = 0;
+        if (!TextUtils.isEmpty(targetString)) {
+            try {
+                target = Integer.parseInt(targetString);
+            } catch (NumberFormatException e) {
+                Log.d(TAG, "Failed to parse target value");
+            }
+        }
+        int score = 0;
+
+        HabitRecord habit = new HabitRecord(userId, now, name, mSelectedColor, target,
+                mResetFrequency.getTypeName(), now, mReminderTime.getHour(),
+                mReminderTime.getMinutes(), score, null);
+        mHabitsDatabaseReference.push().setValue(habit);
+        onBackPressed();
+    }
+
+    private void checkInput() {
+        String name = nameEditText.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(this, R.string.toast_empty_name, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

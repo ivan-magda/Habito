@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.model;
+package com.ivanmagda.habito.models;
 
 public class ResetFrequency {
 
@@ -23,6 +23,32 @@ public class ResetFrequency {
     public static final String NEVER = "Never";
 
     public static final String[] ALL = new String[]{DAY, WEEK, MONTH, YEAR, NEVER};
+
+    private Type mType;
+
+    public ResetFrequency() {
+        this.mType = Type.NEVER;
+    }
+
+    public ResetFrequency(Type type) {
+        this.mType = type;
+    }
+
+    public Type getType() {
+        return mType;
+    }
+
+    public String getTypeName() {
+        return ResetFrequency.stringFor(mType);
+    }
+
+    public void setType(Type type) {
+        this.mType = type;
+    }
+
+    public void setType(String typeString) {
+        this.mType = ResetFrequency.typeFrom(typeString);
+    }
 
     public static String stringFor(Type type) {
         switch (type) {
@@ -56,9 +82,6 @@ public class ResetFrequency {
             default:
                 throw new IllegalArgumentException("Illegal type name");
         }
-    }
-
-    private ResetFrequency() {
     }
 
 }
