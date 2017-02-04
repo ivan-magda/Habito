@@ -10,7 +10,7 @@
     android:foreground="?selectableItemBackground"
     app:cardCornerRadius="8dp"
     app:cardPreventCornerOverlap="false"
-    app:contentPadding="@dimen/padding_medium">
+    app:contentPadding="@dimen/default_padding">
 
     <LinearLayout
         android:layout_width="wrap_content"
