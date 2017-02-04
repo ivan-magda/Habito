@@ -4,8 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="regularTextSize">16sp</dimen>
-
     <dimen name="default_padding">16dp</dimen>
     <dimen name="padding_medium">8dp</dimen>
 
@@ -17,4 +15,10 @@
 
     <dimen name="edit_category_padding">16dp</dimen>
     <dimen name="spinner_paddinf_start">-8dp</dimen>
+    <dimen name="list_item_name_max_width">100dp</dimen>
+
+    <dimen name="regularTextSize">16sp</dimen>
+    <dimen name="default_text_size">14sp</dimen>
+    <dimen name="small_text_size">10sp</dimen>
+    <dimen name="list_item_score_text_size">36sp</dimen>
 </resources>

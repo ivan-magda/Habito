@@ -17,6 +17,41 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ListItemName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center|bottom</item>
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:gravity">center</item>
+        <item name="android:lines">2</item>
+        <item name="android:maxWidth">@dimen/list_item_name_max_width</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+    </style>
+
+    <style name="ListItemResetFreq">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:gravity">center|bottom</item>
+    </style>
+
+    <style name="ListItemScore">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center|bottom</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">@dimen/list_item_score_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="EditHabitLabelStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>

@@ -43,7 +43,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     private static final String TAG = "HabitListActivity";
 
     private static final int NUM_OF_COLUMNS = 2;
-    private static final int SPACE_BETWEEN_ITEMS = 50;
+    private static final int SPACE_BETWEEN_ITEMS = 32;
     private static final int RC_SIGN_IN = 10;
 
     @BindView(R.id.rv_habits)
