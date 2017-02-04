@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_habit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ivanmagda.habito.activities.EditHabitActivity">
+
+    <!-- Name -->
+    <LinearLayout
+        android:id="@+id/container_name"
+        style="@style/EditHabitLinearStyle"
+        android:paddingTop="@dimen/edit_category_padding">
+
+        <TextView
+            style="@style/EditHabitLabelStyle"
+            android:text="@string/tv_edit_name_label" />
+
+        <RelativeLayout style="@style/EditHabitRelativeStyle">
+
+            <ImageButton
+                android:id="@+id/bt_pick_color"
+                style="@style/FormInputColor"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/color_picker_default_title"
+                android:src="@drawable/ic_palette" />
+
+            <EditText
+                android:id="@+id/et_habit_name"
+                style="@style/EditTextStyle"
+                android:layout_toLeftOf="@id/bt_pick_color"
+                android:layout_toStartOf="@id/bt_pick_color"
+                android:hint="@string/habit_name_hint">
+
+                <requestFocus />
+            </EditText>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Reset time -->
+    <LinearLayout
+        android:id="@+id/container_reset"
+        style="@style/EditHabitLinearStyle"
+        android:paddingTop="@dimen/edit_category_padding">
+
+        <TextView
+            style="@style/EditHabitLabelStyle"
+            android:text="@string/tv_edit_reset_label" />
+
+        <RelativeLayout
+            style="@style/EditHabitRelativeStyle"
+            android:paddingEnd="0dp"
+            android:paddingLeft="@dimen/spinner_paddinf_start"
+            android:paddingRight="0dp"
+            android:paddingStart="@dimen/spinner_paddinf_start"
+            android:paddingTop="1dp">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner_reset"
+                style="@style/FormSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Target -->
+    <LinearLayout
+        android:id="@+id/container_target"
+        style="@style/EditHabitLinearStyle"
+        android:paddingTop="@dimen/edit_category_padding">
+
+        <TextView
+            style="@style/EditHabitLabelStyle"
+            android:text="@string/tv_edit_target_label" />
+
+        <RelativeLayout style="@style/EditHabitRelativeStyle">
+
+            <EditText
+                android:id="@+id/et_habit_target"
+                style="@style/EditTextStyle"
+                android:hint="@string/habit_target_hint"
+                android:inputType="numberDecimal" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Reminder -->
+    <LinearLayout
+        android:id="@+id/container_reminder"
+        style="@style/EditHabitLinearStyle"
+        android:paddingTop="@dimen/edit_category_padding">
+
+        <TextView
+            style="@style/EditHabitLabelStyle"
+            android:text="@string/tv_edit_reminder_label" />
+
+        <RelativeLayout
+            style="@style/EditHabitRelativeStyle"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingTop="14dp">
+
+            <TextView
+                android:id="@+id/tv_reminder_time"
+                style="@style/FormSpinner"
+                android:text="@string/off"
+
+                android:textColor="@color/primary_text"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

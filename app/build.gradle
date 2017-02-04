@@ -46,5 +46,8 @@ dependencies {
     // MPAndroidChart
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 
+    // ColorPicker
+    compile 'petrov.kristiyan.colorpicker:colorpicker-library:1.1.2'
+
     testCompile 'junit:junit:4.12'
 }

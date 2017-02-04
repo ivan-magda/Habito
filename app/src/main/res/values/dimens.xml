@@ -4,6 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="regularTextSize">16sp</dimen>
+
     <dimen name="default_padding">16dp</dimen>
     <dimen name="padding_medium">8dp</dimen>
 
@@ -12,4 +14,7 @@
     <dimen name="list_item_min_width">120dp</dimen>
     <dimen name="list_item_max_width">160dp</dimen>
     <dimen name="list_item_between_padding">4dp</dimen>
+
+    <dimen name="edit_category_padding">16dp</dimen>
+    <dimen name="spinner_paddinf_start">-8dp</dimen>
 </resources>

@@ -1,8 +1,8 @@
-package com.ivanmagda.habito;
+package com.ivanmagda.habito.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+
+import com.ivanmagda.habito.view.GridSpacingItemDecoration;
+import com.ivanmagda.habito.model.HabitsAdapter;
+import com.ivanmagda.habito.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HabitListActivity extends AppCompatActivity implements HabitsAdapter.HabitAdapterOnClickListener {
 
@@ -58,19 +62,11 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
                 }
             }
         });
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Add new habito", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_habit_list, menu);
         return true;
     }
 
@@ -87,6 +83,11 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     @Override
     public void onClick(int position) {
         Log.d(TAG, "Select item at position: " + position);
+    }
+
+    @OnClick(R.id.fab)
+    void onAddClick() {
+        startActivity(new Intent(HabitListActivity.this, EditHabitActivity.class));
     }
 
 }
