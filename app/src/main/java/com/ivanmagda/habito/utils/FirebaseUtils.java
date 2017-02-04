@@ -25,6 +25,10 @@ public final class FirebaseUtils {
         return null;
     }
 
+    public static void setOfflineModeEnabled(boolean enabled) {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(enabled);
+    }
+
     private FirebaseUtils() {
     }
 

@@ -195,7 +195,11 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
 
     private void onSignedInInitialize() {
         detachDatabaseReadListener();
+
         mUserHabitsQuery = FirebaseUtils.getCurrentUserHabitsQuery();
+        assert mUserHabitsQuery != null;
+        mUserHabitsQuery.keepSynced(true);
+
         attachDatabaseReadListener();
     }
 
