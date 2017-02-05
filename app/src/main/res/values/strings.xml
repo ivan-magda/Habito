@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Habito</string>
-    <string name="activity_create_name">Create</string>
+    <string name="activity_create_label">Create</string>
+    <string name="activity_detail_label">Detail</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_save">Save</string>
+    <string name="action_edit">Edit</string>
     <string name="sign_out">Sign Out</string>
 
     <!--Auth-->

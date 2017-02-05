@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.ivanmagda.habito.R;
-import com.ivanmagda.habito.models.HabitRecord;
+import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.models.ResetFrequency;
 
 import java.text.SimpleDateFormat;
@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class HabitListItemViewModel {
 
-    private HabitRecord mHabitRecord;
+    private Habit mHabit;
     private Context mContext;
 
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
@@ -22,26 +22,26 @@ public class HabitListItemViewModel {
         this.mContext = context;
     }
 
-    public HabitListItemViewModel(Context context, HabitRecord habitRecord) {
+    public HabitListItemViewModel(Context context, Habit habit) {
         this.mContext = context;
-        this.mHabitRecord = habitRecord;
+        this.mHabit = habit;
     }
 
-    public void setHabitRecord(HabitRecord habitRecord) {
-        this.mHabitRecord = habitRecord;
+    public void setHabit(Habit habit) {
+        this.mHabit = habit;
     }
 
     public int getBackgroundColor() {
-        return mHabitRecord.getColor();
+        return mHabit.getRecord().getColor();
     }
 
     public String getHabitName() {
-        return mHabitRecord.getName();
+        return mHabit.getRecord().getName();
     }
 
     public String getResetFreq() {
         Resources resources = mContext.getResources();
-        switch (mHabitRecord.getResetFreq()) {
+        switch (mHabit.getRecord().getResetFreq()) {
             case ResetFrequency.DAY:
                 return resources.getString(R.string.list_item_reset_today);
             case ResetFrequency.WEEK:
@@ -51,7 +51,7 @@ public class HabitListItemViewModel {
             case ResetFrequency.YEAR:
                 return resetFreqStringWithParameter(ResetFrequency.YEAR);
             case ResetFrequency.NEVER:
-                Date date = new Date(mHabitRecord.getCreatedAt());
+                Date date = new Date(mHabit.getRecord().getCreatedAt());
                 return resources.getString(R.string.list_item_reset_never, FORMAT.format(date));
             default:
                 throw new IllegalArgumentException("Unsupported reset freq time");
@@ -59,11 +59,13 @@ public class HabitListItemViewModel {
     }
 
     public String getScore() {
-        if (mHabitRecord.getTarget() > 0) {
-            return String.valueOf(mHabitRecord.getScore()) + "/"
-                    + String.valueOf(mHabitRecord.getTarget());
+        final int score = mHabit.getRecord().getScore();
+        final int target = mHabit.getRecord().getTarget();
+        if (target > 0) {
+            return String.valueOf(score) + "/"
+                    + String.valueOf(target);
         } else {
-            return String.valueOf(mHabitRecord.getScore());
+            return String.valueOf(score);
         }
     }
 

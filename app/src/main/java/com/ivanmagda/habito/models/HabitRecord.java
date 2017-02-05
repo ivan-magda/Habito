@@ -1,8 +1,15 @@
 package com.ivanmagda.habito.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public final class HabitRecord {
+/**
+ * When syncing with an Firebase Database DataSnapshot's should be parsed with this class.
+ */
+public final class HabitRecord implements Parcelable {
 
     private String userId;
     private long createdAt;
@@ -34,6 +41,53 @@ public final class HabitRecord {
         this.score = score;
         this.checkmarks = checkmarks;
     }
+
+    public HabitRecord(Parcel in) {
+        this.userId = in.readString();
+        this.createdAt = in.readLong();
+        this.name = in.readString();
+        this.color = in.readInt();
+        this.target = in.readInt();
+        this.resetFreq = in.readString();
+        this.resetTimestamp = in.readLong();
+        this.reminderHour = in.readInt();
+        this.reminderMin = in.readInt();
+        this.score = in.readInt();
+        this.checkmarks = new ArrayList<>();
+        in.readList(this.checkmarks, null);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int i) {
+        dest.writeString(userId);
+        dest.writeLong(createdAt);
+        dest.writeString(name);
+        dest.writeInt(color);
+        dest.writeInt(target);
+        dest.writeString(resetFreq);
+        dest.writeLong(resetTimestamp);
+        dest.writeInt(reminderHour);
+        dest.writeInt(reminderMin);
+        dest.writeInt(score);
+        dest.writeList(checkmarks);
+    }
+
+    public static final Parcelable.Creator<HabitRecord> CREATOR = new Parcelable.Creator<HabitRecord>() {
+        @Override
+        public HabitRecord createFromParcel(Parcel parcel) {
+            return new HabitRecord(parcel);
+        }
+
+        @Override
+        public HabitRecord[] newArray(int size) {
+            return new HabitRecord[size];
+        }
+    };
 
     public String getUserId() {
         return userId;
