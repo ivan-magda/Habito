@@ -10,7 +10,7 @@ import com.google.firebase.database.Query;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.models.HabitRecord;
 
-public final class FirebaseUtils {
+public final class FirebaseSyncUtils {
 
     public static final String HABITS_REFERENCE_PATH = "habits";
     public static final String USER_ID_KEY = "userId";
@@ -40,7 +40,7 @@ public final class FirebaseUtils {
         getHabitsReference().child(habit.getId()).setValue(habit.getRecord());
     }
 
-    private FirebaseUtils() {
+    private FirebaseSyncUtils() {
     }
 
 }

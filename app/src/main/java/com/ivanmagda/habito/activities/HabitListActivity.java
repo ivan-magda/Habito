@@ -28,7 +28,8 @@ import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.adapters.HabitsAdapter;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.models.HabitRecord;
-import com.ivanmagda.habito.sync.FirebaseUtils;
+import com.ivanmagda.habito.sync.FirebaseSyncUtils;
+import com.ivanmagda.habito.utils.ReminderUtils;
 import com.ivanmagda.habito.view.GridSpacingItemDecoration;
 
 import java.util.ArrayList;
@@ -195,7 +196,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     private void onSignedInInitialize() {
         detachDatabaseReadListener();
 
-        mUserHabitsQuery = FirebaseUtils.getCurrentUserHabitsQuery();
+        mUserHabitsQuery = FirebaseSyncUtils.getCurrentUserHabitsQuery();
         assert mUserHabitsQuery != null;
         mUserHabitsQuery.keepSynced(true);
 
@@ -222,6 +223,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
                 }
                 hideProgressIndicator();
                 mHabitsAdapter.setHabits(habits);
+                ReminderUtils.processAll(habits, HabitListActivity.this);
             }
 
             @Override

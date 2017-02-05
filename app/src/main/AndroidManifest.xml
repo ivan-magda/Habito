@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ivanmagda.habito">
 
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
     <application
         android:name=".app.HabitApplication"
         android:allowBackup="true"
@@ -11,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="supportsRtl">
-
         <activity
             android:name=".activities.HabitListActivity"
             android:label="@string/app_name"
@@ -22,26 +23,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.EditHabitActivity"
             android:parentActivityName=".activities.HabitListActivity">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.HabitListActivity" />
         </activity>
-
         <activity
             android:name=".activities.DetailHabitActivity"
             android:label="@string/activity_detail_label"
             android:parentActivityName=".activities.HabitListActivity">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.HabitListActivity" />
         </activity>
 
+        <receiver
+            android:name=".receivers.ReminderReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".sync.ReminderIntentService"
+            android:exported="true">
+
+        </service>
     </application>
 
 </manifest>
