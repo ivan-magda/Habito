@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EditHabitLinearStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingEnd">@dimen/edit_category_padding</item>
+        <item name="android:paddingStart">@dimen/edit_category_padding</item>
+    </style>
+
+    <style name="EditHabitNameForm" parent="EditHabitLinearStyle">
+        <item name="android:paddingEnd">@dimen/padding_medium</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EditHabitRelativeStyle">
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="ReminderTextView" parent="FormSpinner">
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+</resources>

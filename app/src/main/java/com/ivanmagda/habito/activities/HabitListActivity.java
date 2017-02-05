@@ -189,7 +189,6 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
                     }
                 })
                 .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 

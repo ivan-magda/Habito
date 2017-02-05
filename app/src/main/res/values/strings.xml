@@ -22,6 +22,7 @@
     <string name="tv_edit_reminder_label">Reminder</string>
     <string name="tv_edit_reset_label">Reset to zero</string>
     <string name="off">Off</string>
+    <string name="select">Select</string>
     <string name="color_picker_default_title">Change color</string>
     <string name="spinner_prompt">Reset to zero every</string>
     <string name="toast_empty_name">Enter habit name</string>

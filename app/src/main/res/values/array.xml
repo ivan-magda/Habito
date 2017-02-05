@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="reminder_time">
+        <item>@string/off</item>
+        <item>@string/select</item>
+    </string-array>
+</resources>
