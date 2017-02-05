@@ -2,7 +2,7 @@ package com.ivanmagda.habito.app;
 
 import android.app.Application;
 
-import com.ivanmagda.habito.utils.FirebaseUtils;
+import com.ivanmagda.habito.sync.FirebaseUtils;
 
 public class HabitApplication extends Application {
 

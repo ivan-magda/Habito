@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
@@ -15,6 +16,9 @@ import java.util.Calendar;
  * A simple {@link Fragment} subclass.
  */
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+
+    public static final String HOUR_EXTRA_KEY = "hour";
+    public static final String MINUTES_EXTRA_KEY = "minutes";
 
     private static final String TAG = "TimePickerFragment";
 
@@ -33,17 +37,39 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     }
 
     private OnTimeSetListener mOnTimeSetListener;
+    private int mHour;
+    private int mMinutes;
+
+    public static TimePickerFragment newInstance(int hour, int minutes) {
+        TimePickerFragment timePickerFragment = new TimePickerFragment();
+
+        Bundle args = new Bundle();
+        args.putInt(HOUR_EXTRA_KEY, hour);
+        args.putInt(MINUTES_EXTRA_KEY, minutes);
+        timePickerFragment.setArguments(args);
+
+        return timePickerFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            this.mHour = args.getInt(HOUR_EXTRA_KEY);
+            this.mMinutes = args.getInt(MINUTES_EXTRA_KEY);
+        } else {
+            //Use the current time as the default values for the time picker
+            final Calendar calendar = Calendar.getInstance();
+            mHour = calendar.get(Calendar.HOUR_OF_DAY);
+            mMinutes = calendar.get(Calendar.MINUTE);
+        }
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //Use the current time as the default values for the time picker
-        final Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
-
-        //Create and return a new instance of TimePickerDialog
-        return new TimePickerDialog(getActivity(), this, hour, minute,
+        return new TimePickerDialog(getActivity(), this, mHour, mMinutes,
                 DateFormat.is24HourFormat(getActivity()));
     }
 

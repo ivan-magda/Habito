@@ -3,10 +3,14 @@ package com.ivanmagda.habito.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public final class Habit implements Parcelable {
+public final class Habit implements Parcelable, Cloneable {
 
     private String mId;
     private HabitRecord mRecord;
+
+    public Habit() {
+        this.mRecord = new HabitRecord();
+    }
 
     public Habit(String id, HabitRecord record) {
         this.mId = id;
@@ -41,6 +45,10 @@ public final class Habit implements Parcelable {
         }
     };
 
+    public Habit copy() {
+        return new Habit(mId, mRecord.copy());
+    }
+
     public String getId() {
         return mId;
     }
@@ -55,6 +63,11 @@ public final class Habit implements Parcelable {
 
     public void setRecord(HabitRecord record) {
         this.mRecord = record;
+    }
+
+    public boolean isReminderOn() {
+        return (mRecord.getReminderHour() != HabitRecord.REMINDER_OFF &&
+                mRecord.getReminderMin() != HabitRecord.REMINDER_OFF);
     }
 
     @Override

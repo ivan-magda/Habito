@@ -43,6 +43,14 @@ public final class ReminderTime {
         return FORMATTER.format(getTodayReminderDate());
     }
 
+    public static String getTimeString(int hour, int minutes) {
+        return getTimeString(new ReminderTime(hour, minutes));
+    }
+
+    public static String getTimeString(ReminderTime reminderTime) {
+        return reminderTime.getTimeString();
+    }
+
     public Date getTodayReminderDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, mHour);

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Habito</string>
     <string name="activity_create_label">Create</string>
+    <string name="activity_edit_label">Edit</string>
     <string name="activity_detail_label">Detail</string>
 
     <string name="action_settings">Settings</string>
@@ -25,7 +26,7 @@
     <string name="spinner_prompt">Reset to zero every</string>
     <string name="toast_empty_name">Enter habit name</string>
     <string name="toast_failed_target_value">Try input another target value</string>
-    <string name="toast_target_empty">Enter target value</string>
+    <string name="toast_target_empty">Enter your target or zero</string>
 
     <string name="list_item_reset_today">Today</string>
     <string name="list_item_reset_freq">This %1$s</string>

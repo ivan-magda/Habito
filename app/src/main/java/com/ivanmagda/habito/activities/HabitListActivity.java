@@ -28,7 +28,7 @@ import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.adapters.HabitsAdapter;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.models.HabitRecord;
-import com.ivanmagda.habito.utils.FirebaseUtils;
+import com.ivanmagda.habito.sync.FirebaseUtils;
 import com.ivanmagda.habito.view.GridSpacingItemDecoration;
 
 import java.util.ArrayList;

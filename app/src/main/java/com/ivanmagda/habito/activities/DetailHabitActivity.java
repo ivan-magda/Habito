@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.models.Habit;
@@ -17,6 +19,7 @@ public class DetailHabitActivity extends AppCompatActivity {
     public static final String HABIT_EXTRA_KEY = "com.ivanmagda.habito.activities.habit";
 
     private static final String TAG = "DetailHabitActivity";
+    private static final int RC_EDIT_HABIT = 1234;
 
     private Habit mHabit;
 
@@ -45,11 +48,22 @@ public class DetailHabitActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_EDIT_HABIT && resultCode == RESULT_OK) {
+            Habit changedHabit = data.getParcelableExtra(EditHabitActivity.EDIT_HABIT_RESULT);
+            Log.d(TAG, "Changed habit: " + changedHabit);
+            Toast.makeText(this, "Result OK!", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     private void configure() {
         setContentView(R.layout.activity_detail_habit);
         ButterKnife.bind(this);
 
-        getHabit();
+        getHabitFromExtras();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -57,7 +71,7 @@ public class DetailHabitActivity extends AppCompatActivity {
         }
     }
 
-    private void getHabit() {
+    private void getHabitFromExtras() {
         Intent intent = getIntent();
         if (intent.hasExtra(HABIT_EXTRA_KEY)) {
             mHabit = intent.getParcelableExtra(HABIT_EXTRA_KEY);
@@ -67,7 +81,9 @@ public class DetailHabitActivity extends AppCompatActivity {
     }
 
     private void editHabit() {
-        startActivity(new Intent(this, EditHabitActivity.class));
+        Intent intent = new Intent(this, EditHabitActivity.class);
+        intent.putExtra(EditHabitActivity.EDIT_HABIT_EXTRA_KEY, mHabit);
+        startActivityForResult(intent, RC_EDIT_HABIT);
     }
 
 }
