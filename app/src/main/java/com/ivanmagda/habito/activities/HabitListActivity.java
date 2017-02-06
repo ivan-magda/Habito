@@ -27,10 +27,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.adapters.HabitsAdapter;
 import com.ivanmagda.habito.models.Habit;
+import com.ivanmagda.habito.models.HabitList;
 import com.ivanmagda.habito.models.HabitRecord;
 import com.ivanmagda.habito.sync.FirebaseSyncUtils;
 import com.ivanmagda.habito.utils.HabitoScoreUtils;
 import com.ivanmagda.habito.utils.ReminderUtils;
+import com.ivanmagda.habito.utils.SharedPreferencesUtils;
 import com.ivanmagda.habito.view.GridSpacingItemDecoration;
 
 import java.util.ArrayList;
@@ -80,8 +82,11 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         ButterKnife.bind(this);
         initFirebase();
 
-        mHabitsAdapter = new HabitsAdapter();
+        HabitList.SortOrder sortOrder = SharedPreferencesUtils.getSortOrder(this);
+        HabitList habitList = new HabitList(new ArrayList<Habit>(), sortOrder);
+        mHabitsAdapter = new HabitsAdapter(habitList);
         mHabitsAdapter.setClickListener(this);
+
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, NUM_OF_COLUMNS));
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(NUM_OF_COLUMNS,
                 SPACE_BETWEEN_ITEMS, true));
@@ -140,6 +145,12 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
             case R.id.action_sign_out:
                 signOut();
                 return true;
+            case R.id.action_sort_by_name:
+                sortBy(HabitList.SortOrder.NAME);
+                return true;
+            case R.id.action_sort_by_created_date:
+                sortBy(HabitList.SortOrder.DATE);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -176,6 +187,11 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
                 }
             }
         };
+    }
+
+    private void sortBy(HabitList.SortOrder sortOrder) {
+        SharedPreferencesUtils.setSortOrder(this, sortOrder);
+        mHabitsAdapter.setSortOrder(sortOrder);
     }
 
     private void signOut() {

@@ -1,5 +1,7 @@
 package com.ivanmagda.habito.adapters;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +11,9 @@ import android.widget.TextView;
 
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.models.Habit;
+import com.ivanmagda.habito.models.HabitList;
 import com.ivanmagda.habito.view.HabitListItemViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,36 +32,40 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
         void onClick(Habit selectedHabit, int position);
     }
 
-    private List<Habit> mHabits;
+    private HabitList mHabitList;
     private HabitAdapterOnClickListener mClickListener;
-
-    public HabitsAdapter() {
-        this.mHabits = new ArrayList<>();
-    }
 
     /**
      * Creates a HabitsAdapter.
      *
-     * @param habitRecords  The data source.
+     * @param habitList     The data source.
      * @param clickListener The on-click handler for this adapter. This single handler is called
      *                      when an item is clicked.
      */
-    public HabitsAdapter(List<Habit> habitRecords, HabitAdapterOnClickListener clickListener) {
-        this.mHabits = habitRecords;
+    public HabitsAdapter(@NonNull HabitList habitList,
+                         @Nullable HabitAdapterOnClickListener clickListener) {
+        this.mHabitList = habitList;
         this.mClickListener = clickListener;
     }
 
-    public void setHabits(List<Habit> habitRecords) {
-        if (habitRecords == null) {
-            this.mHabits.clear();
+    public HabitsAdapter(@NonNull HabitList habitList) {
+        this(habitList, null);
+    }
+
+    public void setHabits(List<Habit> habits) {
+        if (habits == null) {
+            this.mHabitList.clear();
         } else {
-            this.mHabits = habitRecords;
+            this.mHabitList.setHabits(habits);
         }
         notifyDataSetChanged();
     }
 
-    public List<Habit> getHabits() {
-        return mHabits;
+    public void setSortOrder(HabitList.SortOrder sortOrder) {
+        if (mHabitList.getSortOrder() != sortOrder) {
+            mHabitList.setSortOrder(sortOrder);
+            notifyDataSetChanged();
+        }
     }
 
     public void setClickListener(HabitAdapterOnClickListener onClickListener) {
@@ -67,12 +73,12 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
     }
 
     public void clear() {
-        mHabits.clear();
+        mHabitList.clear();
         notifyDataSetChanged();
     }
 
     public void add(Habit habit) {
-        mHabits.add(habit);
+        mHabitList.add(habit);
         notifyDataSetChanged();
     }
 
@@ -91,7 +97,7 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
 
     @Override
     public int getItemCount() {
-        return mHabits.size();
+        return mHabitList.getHabits().size();
     }
 
     /**
@@ -121,13 +127,13 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
         public void onClick(View v) {
             if (mClickListener != null) {
                 int position = getAdapterPosition();
-                Habit selectedHabit = mHabits.get(position);
+                Habit selectedHabit = mHabitList.getHabits().get(position);
                 mClickListener.onClick(selectedHabit, position);
             }
         }
 
         private void bindAtPosition(int position) {
-            mViewModel.setHabit(mHabits.get(position));
+            mViewModel.setHabit(mHabitList.getHabits().get(position));
 
             if (itemView instanceof CardView) {
                 ((CardView) itemView).setCardBackgroundColor(mViewModel.getBackgroundColor());
@@ -136,6 +142,7 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
             }
 
             nameTextView.setText(mViewModel.getHabitName());
+            nameTextView.setTextColor(mViewModel.getHabitNameTextColor());
             resetPeriodTextView.setText(mViewModel.getResetFreq());
             countTextView.setText(mViewModel.getScore());
         }

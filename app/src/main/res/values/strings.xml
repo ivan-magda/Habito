@@ -8,6 +8,11 @@
     <string name="action_save">Save</string>
     <string name="action_edit">Edit</string>
     <string name="sign_out">Sign Out</string>
+    <string name="menu_sort_by_name">Sort by Name</string>
+    <string name="menu_sort_by_date">Sort by Date</string>
+
+    <string name="preference_sort_file_key" translatable="false">com.ivanmagda.habito.SORT_PREFERENCE_FILE_KEY</string>
+    <string name="saved_sort_order" translatable="false">sort_order</string>
 
     <!--Auth-->
     <string name="auth_success_msg">You\'re now signed in. Hi there!</string>

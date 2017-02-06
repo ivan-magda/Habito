@@ -2,6 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.ivanmagda.habito.activities.HabitListActivity">
+
+    <item
+        android:id="@+id/action_sort_by_name"
+        android:title="@string/menu_sort_by_name"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sort_by_created_date"
+        android:title="@string/menu_sort_by_date"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_sign_out"
         android:title="@string/sign_out"

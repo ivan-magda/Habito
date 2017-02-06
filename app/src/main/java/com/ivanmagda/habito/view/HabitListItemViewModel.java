@@ -2,6 +2,7 @@ package com.ivanmagda.habito.view;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.models.Habit;
@@ -37,6 +38,15 @@ public class HabitListItemViewModel {
 
     public String getHabitName() {
         return mHabit.getRecord().getName();
+    }
+
+    public int getHabitNameTextColor() {
+        int color = mHabit.getRecord().getColor();
+        if (color == Color.WHITE) {
+            return mContext.getResources().getColor(R.color.primary_text);
+        } else {
+            return Color.WHITE;
+        }
     }
 
     public String getResetFreq() {
