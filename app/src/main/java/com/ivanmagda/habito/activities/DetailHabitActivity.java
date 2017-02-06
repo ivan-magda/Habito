@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.ivanmagda.habito.R;
+import com.ivanmagda.habito.barchart.BarChartConfigurator;
+import com.ivanmagda.habito.barchart.BarChartRange;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.sync.FirebaseSyncUtils;
 
@@ -27,10 +28,15 @@ public class DetailHabitActivity extends AppCompatActivity {
     private static final String TAG = "DetailHabitActivity";
     private static final int RC_EDIT_HABIT = 1234;
 
+    @BindView(R.id.bar_chart)
+    BarChart barChart;
+
     @BindView(R.id.tv_score)
     TextView scoreTextView;
 
     private Habit mHabit;
+    private BarChartConfigurator mBarChartConfigurator;
+    private BarChartRange.DateRange mBarChartRange = BarChartRange.DateRange.WEEK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +70,9 @@ public class DetailHabitActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RC_EDIT_HABIT && resultCode == RESULT_OK) {
-            Habit changedHabit = data.getParcelableExtra(EditHabitActivity.EDIT_HABIT_RESULT);
-            Log.d(TAG, "Changed habit: " + changedHabit);
-            Toast.makeText(this, "Result OK!", Toast.LENGTH_SHORT).show();
+            mHabit = data.getParcelableExtra(EditHabitActivity.EDIT_HABIT_RESULT);
+            mBarChartConfigurator.setData(mHabit, mBarChartRange);
+            updateUI();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -77,12 +83,17 @@ public class DetailHabitActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         getHabitFromExtras();
+        updateUI();
 
+        mBarChartConfigurator = new BarChartConfigurator(barChart);
+        mBarChartConfigurator.setup(mHabit, mBarChartRange);
+    }
+
+    private void updateUI() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(mHabit.getRecord().getName());
         }
-
         updateScoreText();
     }
 
@@ -123,6 +134,7 @@ public class DetailHabitActivity extends AppCompatActivity {
     private void updateScoreIfNeeded(int oldValue) {
         if (oldValue != mHabit.getRecord().getScore()) {
             updateScoreText();
+            mBarChartConfigurator.setData(mHabit, mBarChartRange);
             FirebaseSyncUtils.applyChangesForHabit(mHabit);
         }
     }

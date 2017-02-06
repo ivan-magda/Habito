@@ -78,6 +78,28 @@ public final class HabitoDateUtils {
         }
     }
 
+    public static long getStartOfThisWeek() {
+        Calendar calendar = getCurrentCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MILLISECOND);
+
+        // get start of this week in milliseconds
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+
+        return calendar.getTimeInMillis();
+    }
+
+    public static boolean sameDay(long lhs, long rhs) {
+        Calendar lhsCal = Calendar.getInstance();
+        Calendar rhsCal = Calendar.getInstance();
+        lhsCal.setTimeInMillis(lhs);
+        rhsCal.setTimeInMillis(rhs);
+        return (lhsCal.get(Calendar.YEAR) == rhsCal.get(Calendar.YEAR))
+                && (lhsCal.get(Calendar.DAY_OF_YEAR) == rhsCal.get(Calendar.DAY_OF_YEAR));
+    }
+
     private HabitoDateUtils() {
     }
 
