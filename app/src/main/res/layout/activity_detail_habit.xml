@@ -14,7 +14,7 @@
             android:id="@+id/bt_decrease"
             style="@style/IncScoreButton"
             android:contentDescription="@string/bt_decrease_content_description"
-            android:src="@drawable/ic_minus_dark" />
+            android:src="@drawable/ic_minus_gray" />
 
         <TextView
             android:id="@+id/tv_score"
@@ -25,7 +25,7 @@
             android:id="@+id/bt_increase"
             style="@style/DecScoreButton"
             android:contentDescription="@string/bt_increase_content_description"
-            android:src="@drawable/ic_plus_dark" />
+            android:src="@drawable/ic_plus_gray" />
     </LinearLayout>
 
 </LinearLayout>

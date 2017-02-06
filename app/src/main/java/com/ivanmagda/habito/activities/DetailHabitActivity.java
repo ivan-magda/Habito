@@ -1,8 +1,10 @@
 package com.ivanmagda.habito.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -50,6 +52,10 @@ public class DetailHabitActivity extends AppCompatActivity {
                 return true;
             case R.id.action_edit:
                 editHabit();
+                return true;
+            case R.id.action_delete:
+                delete();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -119,6 +125,21 @@ public class DetailHabitActivity extends AppCompatActivity {
             updateScoreText();
             FirebaseSyncUtils.applyChangesForHabit(mHabit);
         }
+    }
+
+    private void delete() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.action_delete)
+                .setMessage(R.string.delete_habit_message)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseSyncUtils.deleteHabit(mHabit);
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
     }
 
 }

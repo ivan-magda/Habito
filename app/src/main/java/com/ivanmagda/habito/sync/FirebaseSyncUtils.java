@@ -40,6 +40,10 @@ public final class FirebaseSyncUtils {
         getHabitsReference().child(habit.getId()).setValue(habit.getRecord());
     }
 
+    public static void deleteHabit(@NonNull final Habit habit) {
+        getHabitsReference().child(habit.getId()).setValue(null);
+    }
+
     private FirebaseSyncUtils() {
     }
 
