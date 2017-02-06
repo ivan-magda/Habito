@@ -25,6 +25,7 @@ import com.ivanmagda.habito.models.ReminderTime;
 import com.ivanmagda.habito.models.ResetFrequency;
 import com.ivanmagda.habito.pickers.TimePickerFragment;
 import com.ivanmagda.habito.sync.FirebaseSyncUtils;
+import com.ivanmagda.habito.utils.HabitoScoreUtils;
 import com.ivanmagda.habito.utils.ReminderUtils;
 
 import java.util.Arrays;
@@ -224,6 +225,7 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
         setResult(RESULT_OK, data);
 
         ReminderUtils.processOn(mEditingHabit, this);
+        HabitoScoreUtils.resetScore(mEditingHabit);
         FirebaseSyncUtils.applyChangesForHabit(mEditingHabit);
 
         finish();

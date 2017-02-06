@@ -3,6 +3,8 @@ package com.ivanmagda.habito.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ivanmagda.habito.utils.HabitoScoreUtils;
+
 public final class Habit implements Parcelable, Cloneable {
 
     private String mId;
@@ -71,20 +73,11 @@ public final class Habit implements Parcelable, Cloneable {
     }
 
     public synchronized void increaseScore() {
-        HabitRecord record = getRecord();
-        record.getCheckmarks().add(System.currentTimeMillis());
-        record.setScore(record.getCheckmarks().size());
+        HabitoScoreUtils.increaseScore(this);
     }
 
     public synchronized void decreaseScore() {
-        HabitRecord record = getRecord();
-
-        int checkmarksCount = record.getCheckmarks().size();
-        if (checkmarksCount > 0) {
-            record.getCheckmarks().remove(checkmarksCount - 1);
-        }
-
-        record.setScore(record.getCheckmarks().size());
+        HabitoScoreUtils.decreaseScore(this);
     }
 
     @Override

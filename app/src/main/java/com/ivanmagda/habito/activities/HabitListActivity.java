@@ -29,6 +29,7 @@ import com.ivanmagda.habito.adapters.HabitsAdapter;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.models.HabitRecord;
 import com.ivanmagda.habito.sync.FirebaseSyncUtils;
+import com.ivanmagda.habito.utils.HabitoScoreUtils;
 import com.ivanmagda.habito.utils.ReminderUtils;
 import com.ivanmagda.habito.view.GridSpacingItemDecoration;
 
@@ -125,7 +126,6 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
         detachDatabaseReadListener();
-        mHabitsAdapter.clear();
     }
 
     @Override
@@ -215,14 +215,8 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         mValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Habit> habits = new ArrayList<>((int) dataSnapshot.getChildrenCount());
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    HabitRecord parsedRecord = data.getValue(HabitRecord.class);
-                    habits.add(new Habit(data.getKey(), parsedRecord));
-                }
                 hideProgressIndicator();
-                mHabitsAdapter.setHabits(habits);
-                ReminderUtils.processAll(habits, HabitListActivity.this);
+                processOnDataChange(dataSnapshot);
             }
 
             @Override
@@ -231,7 +225,6 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
                 Log.e(TAG, "Cancelled to query habits: " + databaseError.toString());
             }
         };
-
         mUserHabitsQuery.addValueEventListener(mValueEventListener);
     }
 
@@ -243,12 +236,16 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         mUserHabitsQuery = null;
     }
 
-    private void showProgressIndicator() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
+    private void processOnDataChange(DataSnapshot dataSnapshot) {
+        List<Habit> habits = new ArrayList<>((int) dataSnapshot.getChildrenCount());
+        for (DataSnapshot data : dataSnapshot.getChildren()) {
+            HabitRecord parsedRecord = data.getValue(HabitRecord.class);
+            habits.add(new Habit(data.getKey(), parsedRecord));
+        }
+        mHabitsAdapter.setHabits(habits);
 
-    private void hideProgressIndicator() {
-        progressBar.setVisibility(View.INVISIBLE);
+        HabitoScoreUtils.processAll(habits);
+        ReminderUtils.processAll(habits, this);
     }
 
     private void showDetail(Habit habit) {
@@ -261,6 +258,14 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         if (mFirebaseAuth.getCurrentUser() != null) {
             startActivity(new Intent(this, EditHabitActivity.class));
         }
+    }
+
+    private void showProgressIndicator() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressIndicator() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
 }

@@ -7,7 +7,7 @@ public class ResetFrequency {
 
         private final int value;
 
-        private Type(int value) {
+        Type(int value) {
             this.value = value;
         }
 
@@ -32,6 +32,10 @@ public class ResetFrequency {
 
     public ResetFrequency(Type type) {
         this.mType = type;
+    }
+
+    public ResetFrequency(String stringType) {
+        this.mType = typeFrom(stringType);
     }
 
     public Type getType() {
