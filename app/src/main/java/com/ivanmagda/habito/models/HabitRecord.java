@@ -186,6 +186,7 @@ public final class HabitRecord implements Parcelable {
     }
 
     public void setScore(int score) {
+        if (score < 0) return;
         this.score = score;
     }
 

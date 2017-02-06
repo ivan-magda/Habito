@@ -28,4 +28,23 @@
         <item name="android:textColor">@color/primary_text</item>
     </style>
 
+    <style name="FormScore">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingStart">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="DecScoreButton" parent="ScoreButton">
+        <item name="android:layout_marginLeft">@dimen/default_padding</item>
+        <item name="android:layout_marginStart">@dimen/default_padding</item>
+    </style>
+
+    <style name="IncScoreButton" parent="ScoreButton">
+        <item name="android:layout_marginRight">@dimen/default_padding</item>
+        <item name="android:layout_marginEnd">@dimen/default_padding</item>
+    </style>
+
 </resources>

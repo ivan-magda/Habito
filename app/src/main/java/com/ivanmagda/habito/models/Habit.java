@@ -70,6 +70,23 @@ public final class Habit implements Parcelable, Cloneable {
                 mRecord.getReminderMin() != HabitRecord.REMINDER_OFF);
     }
 
+    public synchronized void increaseScore() {
+        HabitRecord record = getRecord();
+        record.getCheckmarks().add(System.currentTimeMillis());
+        record.setScore(record.getCheckmarks().size());
+    }
+
+    public synchronized void decreaseScore() {
+        HabitRecord record = getRecord();
+
+        int checkmarksCount = record.getCheckmarks().size();
+        if (checkmarksCount > 0) {
+            record.getCheckmarks().remove(checkmarksCount - 1);
+        }
+
+        record.setScore(record.getCheckmarks().size());
+    }
+
     @Override
     public String toString() {
         return "Habit{" +

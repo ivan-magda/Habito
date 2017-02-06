@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.app;
+package com.ivanmagda.habito.application;
 
 import android.app.Application;
 

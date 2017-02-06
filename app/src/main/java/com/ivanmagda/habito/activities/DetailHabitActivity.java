@@ -7,12 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.models.Habit;
+import com.ivanmagda.habito.sync.FirebaseSyncUtils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailHabitActivity extends AppCompatActivity {
 
@@ -20,6 +24,9 @@ public class DetailHabitActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailHabitActivity";
     private static final int RC_EDIT_HABIT = 1234;
+
+    @BindView(R.id.tv_score)
+    TextView scoreTextView;
 
     private Habit mHabit;
 
@@ -69,6 +76,8 @@ public class DetailHabitActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setTitle(mHabit.getRecord().getName());
         }
+
+        updateScoreText();
     }
 
     private void getHabitFromExtras() {
@@ -84,6 +93,32 @@ public class DetailHabitActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditHabitActivity.class);
         intent.putExtra(EditHabitActivity.EDIT_HABIT_EXTRA_KEY, mHabit);
         startActivityForResult(intent, RC_EDIT_HABIT);
+    }
+
+    private void updateScoreText() {
+        String scoreString = String.valueOf(mHabit.getRecord().getScore());
+        scoreTextView.setText(scoreString);
+    }
+
+    @OnClick(R.id.bt_increase)
+    void onIncreaseScoreClick() {
+        final int oldScore = mHabit.getRecord().getScore();
+        mHabit.increaseScore();
+        updateScoreIfNeeded(oldScore);
+    }
+
+    @OnClick(R.id.bt_decrease)
+    void onDecreaseClick() {
+        final int oldScore = mHabit.getRecord().getScore();
+        mHabit.decreaseScore();
+        updateScoreIfNeeded(oldScore);
+    }
+
+    private void updateScoreIfNeeded(int oldValue) {
+        if (oldValue != mHabit.getRecord().getScore()) {
+            updateScoreText();
+            FirebaseSyncUtils.applyChangesForHabit(mHabit);
+        }
     }
 
 }

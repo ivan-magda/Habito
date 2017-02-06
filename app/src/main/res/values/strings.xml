@@ -32,5 +32,7 @@
     <string name="list_item_reset_today">Today</string>
     <string name="list_item_reset_freq">This %1$s</string>
     <string name="list_item_reset_never">Since %1$s</string>
+    <string name="bt_increase_content_description">Increase score</string>
+    <string name="bt_decrease_content_description">Decrease score</string>
 
 </resources>
