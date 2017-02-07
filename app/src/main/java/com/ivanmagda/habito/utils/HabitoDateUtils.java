@@ -89,7 +89,11 @@ public final class HabitoDateUtils {
     }
 
     public static long getStartOfCurrentWeek() {
-        Calendar calendar = getCurrentCalendar();
+        return getStartOfWeek(System.currentTimeMillis());
+    }
+
+    public static long getStartOfWeek(long week) {
+        Calendar calendar = getCalendarWithTime(week);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.clear(Calendar.MINUTE);
         calendar.clear(Calendar.SECOND);
@@ -98,6 +102,12 @@ public final class HabitoDateUtils {
         // get start of this week in milliseconds
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
 
+        return calendar.getTimeInMillis();
+    }
+
+    public static long getEndOfCurrentWeek() {
+        Calendar calendar = getCalendarWithTime(getStartOfCurrentWeek());
+        calendar.add(Calendar.DATE, 6);
         return calendar.getTimeInMillis();
     }
 
@@ -129,7 +139,13 @@ public final class HabitoDateUtils {
 
     public static long getStartOfCurrentYear() {
         Calendar calendar = getCurrentCalendar();
-        calendar.set(Calendar.MONTH, 1);
+        calendar.set(Calendar.MONTH, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    public static long getEndOfCurrentYear() {
+        Calendar calendar = getCurrentCalendar();
+        calendar.set(Calendar.MONTH, 11);
         return calendar.getTimeInMillis();
     }
 

@@ -1,24 +1,29 @@
 package com.ivanmagda.habito.barchart.formatters;
 
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.ivanmagda.habito.utils.HabitoDateUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
-public class WeekDayAxisValueFormatter implements IAxisValueFormatter {
+import static com.ivanmagda.habito.utils.HabitoDateUtils.getCalendarWithTime;
+import static com.ivanmagda.habito.utils.HabitoDateUtils.getStartOfCurrentWeek;
 
-    public static final int LABEL_COUNT = 7;
+public class WeekDayAxisValueFormatter extends HabitoBaseIAxisValueFormatter {
+
     private static SimpleDateFormat FORMATTER = new SimpleDateFormat("EEE", Locale.getDefault());
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(HabitoDateUtils.getStartOfCurrentWeek());
+        return FORMATTER.format(new Date(getDateForValue(value)));
+    }
+
+    @Override
+    public long getDateForValue(float value) {
+        Calendar calendar = getCalendarWithTime(getStartOfCurrentWeek());
         calendar.add(Calendar.DATE, (int) value);
-        return FORMATTER.format(calendar.getTime());
+        return calendar.getTimeInMillis();
     }
 
 }

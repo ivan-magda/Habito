@@ -20,6 +20,7 @@ import com.ivanmagda.habito.barchart.HabitoBarChartConfigurator;
 import com.ivanmagda.habito.barchart.HabitoBarChartRange;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.sync.FirebaseSyncUtils;
+import com.ivanmagda.habito.view.model.HabitDetailViewModel;
 
 import java.util.List;
 
@@ -44,9 +45,13 @@ public class DetailHabitActivity extends AppCompatActivity
     @BindView(R.id.sp_date_range)
     Spinner dateRangeSpinner;
 
+    @BindView(R.id.tv_date_range)
+    TextView dateRangeTextView;
+
     private Habit mHabit;
     private HabitoBarChartConfigurator mBarChartConfigurator;
     private HabitoBarChartRange.DateRange mBarChartRange = HabitoBarChartRange.DateRange.WEEK;
+    private HabitDetailViewModel mViewModel = new HabitDetailViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +109,10 @@ public class DetailHabitActivity extends AppCompatActivity
             actionBar.setTitle(mHabit.getRecord().getName());
         }
 
-        updateScoreText();
+        String scoreString = mViewModel.getScoreString(mHabit.getRecord().getScore());
+        scoreTextView.setText(scoreString);
+
+        dateRangeTextView.setText(mViewModel.getDateRangeString());
         mBarChartConfigurator.setup(mHabit, mBarChartRange);
     }
 
@@ -121,11 +129,6 @@ public class DetailHabitActivity extends AppCompatActivity
         Intent intent = new Intent(this, EditHabitActivity.class);
         intent.putExtra(EditHabitActivity.EDIT_HABIT_EXTRA_KEY, mHabit);
         startActivityForResult(intent, RC_EDIT_HABIT);
-    }
-
-    private void updateScoreText() {
-        String scoreString = String.valueOf(mHabit.getRecord().getScore());
-        scoreTextView.setText(scoreString);
     }
 
     @OnClick(R.id.bt_increase)
@@ -178,6 +181,7 @@ public class DetailHabitActivity extends AppCompatActivity
         String selected = parent.getItemAtPosition(position).toString();
         if (!selected.equals(mBarChartRange.stringValue(this))) {
             mBarChartRange = HabitoBarChartRange.DateRange.fromString(selected, this);
+            mViewModel.setDateRange(mBarChartRange);
             updateUI();
         }
     }

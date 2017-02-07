@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_detail_habit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.ivanmagda.habito.activities.DetailHabitActivity">
 
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/sp_date_range"
-        style="@style/BarChartDateSpinner" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bar_chart"
-        style="@style/BarChart" />
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sp_date_range"
+            style="@style/BarChartDateSpinner" />
 
-    <LinearLayout style="@style/FormScore">
-
-        <ImageButton
-            android:id="@+id/bt_decrease"
-            style="@style/IncScoreButton"
-            android:contentDescription="@string/bt_decrease_content_description"
-            android:src="@drawable/ic_minus_gray" />
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart"
+            style="@style/BarChart" />
 
         <TextView
-            android:id="@+id/tv_score"
-            style="@style/ScoreTextView"
-            tools:text="0" />
+            android:id="@+id/tv_date_range"
+            style="@style/DateRangeTextView"
+            tools:text="6 Feb 2017 - 12 Feb 2017" />
 
-        <ImageButton
-            android:id="@+id/bt_increase"
-            style="@style/DecScoreButton"
-            android:contentDescription="@string/bt_increase_content_description"
-            android:src="@drawable/ic_plus_gray" />
+        <LinearLayout
+            style="@style/FormScore"
+            android:layout_marginTop="@dimen/form_score_margin_top">
+
+            <ImageButton
+                android:id="@+id/bt_decrease"
+                style="@style/IncScoreButton"
+                android:contentDescription="@string/bt_decrease_content_description"
+                android:src="@drawable/ic_minus_gray" />
+
+            <TextView
+                android:id="@+id/tv_score"
+                style="@style/ScoreTextView"
+                tools:text="0" />
+
+            <ImageButton
+                android:id="@+id/bt_increase"
+                style="@style/DecScoreButton"
+                android:contentDescription="@string/bt_increase_content_description"
+                android:src="@drawable/ic_plus_gray" />
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

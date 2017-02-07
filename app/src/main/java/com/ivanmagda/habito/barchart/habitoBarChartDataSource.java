@@ -8,6 +8,7 @@ import com.ivanmagda.habito.utils.HabitoDateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public final class HabitoBarChartDataSource {
@@ -76,6 +77,10 @@ public final class HabitoBarChartDataSource {
                 break;
             case MONTH:
                 calendar.add(Calendar.DAY_OF_WEEK_IN_MONTH, index);
+                Date endOfMonth = new Date(HabitoDateUtils.getEndOfCurrentMonth());
+                if (calendar.getTime().after(endOfMonth)) {
+                    return endOfMonth.getTime();
+                }
                 break;
             case YEAR:
                 calendar.add(Calendar.MONTH, index);
@@ -91,7 +96,8 @@ public final class HabitoBarChartDataSource {
             case WEEK:
                 return HabitoDateUtils.isSameDay(currentDate, checkmarkDate);
             case MONTH:
-                return HabitoDateUtils.isDatesInSameWeek(currentDate, checkmarkDate);
+                return HabitoDateUtils.isDatesInSameMonth(currentDate, checkmarkDate)
+                        && HabitoDateUtils.isDatesInSameWeek(currentDate, checkmarkDate);
             case YEAR:
                 return HabitoDateUtils.isDatesInSameMonth(currentDate, checkmarkDate);
             default:

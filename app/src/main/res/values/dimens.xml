@@ -21,4 +21,7 @@
     <dimen name="default_text_size">14sp</dimen>
     <dimen name="small_text_size">10sp</dimen>
     <dimen name="list_item_score_text_size">36sp</dimen>
+
+    <dimen name="bar_chart_height">300dp</dimen>
+    <dimen name="form_score_margin_top">-12dp</dimen>
 </resources>

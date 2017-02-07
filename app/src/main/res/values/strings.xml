@@ -23,6 +23,8 @@
     <string name="year">Year</string>
     <string name="never">Never</string>
 
+    <string name="bar_chart_set_name">This %1$s</string>
+
     <!--Auth-->
     <string name="auth_success_msg">You\'re now signed in. Hi there!</string>
     <string name="auth_canceled_msg">Sign in canceled</string>

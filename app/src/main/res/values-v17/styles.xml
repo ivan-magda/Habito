@@ -47,4 +47,13 @@
         <item name="android:layout_marginEnd">@dimen/default_padding</item>
     </style>
 
+    <style name="BarChart">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/bar_chart_height</item>
+        <item name="android:layout_marginRight">@dimen/padding_medium</item>
+        <item name="android:layout_marginLeft">@dimen/padding_medium</item>
+        <item name="android:layout_marginStart">@dimen/padding_medium</item>
+        <item name="android:layout_marginEnd">@dimen/padding_medium</item>
+    </style>
+
 </resources>

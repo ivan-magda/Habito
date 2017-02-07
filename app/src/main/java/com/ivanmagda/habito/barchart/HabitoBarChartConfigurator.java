@@ -9,15 +9,16 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.ivanmagda.habito.barchart.formatters.HabitoBarChartValueFormatter;
+import com.ivanmagda.habito.barchart.formatters.HabitoBaseIAxisValueFormatter;
 import com.ivanmagda.habito.barchart.formatters.MonthAxisValueFormatter;
 import com.ivanmagda.habito.barchart.formatters.WeekDayAxisValueFormatter;
 import com.ivanmagda.habito.barchart.formatters.YearAxisValueFormatter;
 import com.ivanmagda.habito.barchart.view.XYMarkerView;
 import com.ivanmagda.habito.models.Habit;
-import com.ivanmagda.habito.viewmodel.BarChartViewModel;
+import com.ivanmagda.habito.view.model.HabitoBarChartViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +28,13 @@ public final class HabitoBarChartConfigurator {
     private static final int MAX_VISIBLE_VALUE_COUNT = 60;
 
     private BarChart mBarChart;
-    private IAxisValueFormatter mXAxisFormatter;
+    private HabitoBaseIAxisValueFormatter mXAxisFormatter;
 
     private Habit mHabit;
     private HabitoBarChartRange.DateRange mDateRange;
 
     private HabitoBarChartDataSource mDataSource;
-    private BarChartViewModel mViewModel;
+    private HabitoBarChartViewModel mViewModel;
 
     public HabitoBarChartConfigurator(BarChart barChart) {
         this.mBarChart = barChart;
@@ -42,7 +43,7 @@ public final class HabitoBarChartConfigurator {
     public void setup(@NonNull final Habit habit, HabitoBarChartRange.DateRange dateRange) {
         this.mHabit = habit;
         this.mDateRange = dateRange;
-        this.mViewModel = new BarChartViewModel(habit, dateRange);
+        this.mViewModel = new HabitoBarChartViewModel(habit, dateRange);
         this.mDataSource = new HabitoBarChartDataSource(habit, dateRange, new HabitoBarChartDataSource.Delegate() {
             @Override
             public int numberOfEntries() {
@@ -129,17 +130,21 @@ public final class HabitoBarChartConfigurator {
         YAxis leftAxis = mBarChart.getAxisLeft();
         leftAxis.setLabelCount(labelCount, false);
 
+        final String setName = mViewModel.getBarDataSetName(mBarChart.getContext());
         BarDataSet barDataSet;
+
         if (mBarChart.getData() != null &&
                 mBarChart.getData().getDataSetCount() > 0) {
             barDataSet = (BarDataSet) mBarChart.getData().getDataSetByIndex(0);
             barDataSet.setValues(yValues);
+            barDataSet.setLabel(setName);
             mBarChart.getData().notifyDataChanged();
             mBarChart.notifyDataSetChanged();
             mBarChart.invalidate();
         } else {
-            barDataSet = new BarDataSet(yValues, mViewModel.getBarDataSetName());
+            barDataSet = new BarDataSet(yValues, setName);
             barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+            barDataSet.setValueFormatter(new HabitoBarChartValueFormatter());
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
             dataSets.add(barDataSet);
