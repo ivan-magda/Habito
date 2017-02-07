@@ -27,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.adapters.HabitsAdapter;
+import com.ivanmagda.habito.analytics.HabitoAnalytics;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.models.HabitList;
 import com.ivanmagda.habito.models.HabitRecord;
@@ -215,6 +216,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     private void onSignedInInitialize() {
         detachDatabaseReadListener();
 
+        HabitoAnalytics.logLogin(FirebaseAuth.getInstance().getCurrentUser());
         mUserHabitsQuery = FirebaseSyncUtils.getCurrentUserHabitsQuery();
         assert mUserHabitsQuery != null;
         mUserHabitsQuery.keepSynced(true);
@@ -272,6 +274,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     }
 
     private void showDetail(Habit habit) {
+        HabitoAnalytics.logViewHabitListItem(habit);
         Intent intent = new Intent(this, DetailHabitActivity.class);
         intent.putExtra(DetailHabitActivity.HABIT_EXTRA_KEY, habit);
         startActivity(intent);

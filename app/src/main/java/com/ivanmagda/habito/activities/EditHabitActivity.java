@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ivanmagda.habito.R;
+import com.ivanmagda.habito.analytics.HabitoAnalytics;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.models.HabitRecord;
 import com.ivanmagda.habito.models.ReminderTime;
@@ -215,6 +216,7 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
     }
 
     private void createNew() {
+        HabitoAnalytics.logCreateHabitWithName(mEditingHabit.getRecord().getName());
         FirebaseSyncUtils.createNewHabitRecord(mEditingHabit.getRecord());
         onBackPressed();
     }
