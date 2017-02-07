@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -53,6 +54,9 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
 
     @BindView(R.id.rv_habits)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.empty_view)
+    TextView emptyView;
 
     @BindView(R.id.fab)
     FloatingActionButton floatingActionButton;
@@ -259,7 +263,9 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
             HabitRecord parsedRecord = data.getValue(HabitRecord.class);
             habits.add(new Habit(data.getKey(), parsedRecord));
         }
+
         mHabitsAdapter.setHabits(habits);
+        emptyView.setVisibility(mHabitsAdapter.getHabits().isEmpty() ? View.VISIBLE : View.INVISIBLE);
 
         HabitoScoreUtils.processAll(habits);
         ReminderUtils.processAll(habits, this);

@@ -4,6 +4,8 @@
     <string name="activity_edit_label">Edit</string>
     <string name="activity_detail_label">Detail</string>
 
+    <string name="no_data_available">No data available.</string>
+
     <string name="action_settings">Settings</string>
     <string name="action_save">Save</string>
     <string name="action_edit">Edit</string>

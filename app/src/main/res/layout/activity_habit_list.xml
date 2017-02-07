@@ -44,7 +44,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="invisible"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/empty_view"
+        style="@style/EmptyView"
         tools:visibility="visible" />
 
 </android.support.design.widget.CoordinatorLayout>
