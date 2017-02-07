@@ -61,6 +61,10 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
         notifyDataSetChanged();
     }
 
+    public List<Habit> getHabits() {
+        return mHabitList.getHabits();
+    }
+
     public void setSortOrder(HabitList.SortOrder sortOrder) {
         if (mHabitList.getSortOrder() != sortOrder) {
             mHabitList.setSortOrder(sortOrder);

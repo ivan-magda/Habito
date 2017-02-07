@@ -219,6 +219,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     }
 
     private void onSignedOutCleanup() {
+        ReminderUtils.cancelAll(mHabitsAdapter.getHabits(), this);
         mHabitsAdapter.clear();
         detachDatabaseReadListener();
     }
