@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.models.HabitList;
-import com.ivanmagda.habito.view.HabitListItemViewModel;
+import com.ivanmagda.habito.viewmodel.HabitListItemViewModel;
 
 import java.util.List;
 

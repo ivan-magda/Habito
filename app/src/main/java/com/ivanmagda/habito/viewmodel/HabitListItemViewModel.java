@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.view;
+package com.ivanmagda.habito.viewmodel;
 
 import android.content.Context;
 import android.content.res.Resources;

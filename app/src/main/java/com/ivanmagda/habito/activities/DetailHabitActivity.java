@@ -71,7 +71,6 @@ public class DetailHabitActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RC_EDIT_HABIT && resultCode == RESULT_OK) {
             mHabit = data.getParcelableExtra(EditHabitActivity.EDIT_HABIT_RESULT);
-            mBarChartConfigurator.setData(mHabit, mBarChartRange);
             updateUI();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -82,11 +81,10 @@ public class DetailHabitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_habit);
         ButterKnife.bind(this);
 
+        mBarChartConfigurator = new BarChartConfigurator(barChart);
+
         getHabitFromExtras();
         updateUI();
-
-        mBarChartConfigurator = new BarChartConfigurator(barChart);
-        mBarChartConfigurator.setup(mHabit, mBarChartRange);
     }
 
     private void updateUI() {
@@ -94,7 +92,9 @@ public class DetailHabitActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setTitle(mHabit.getRecord().getName());
         }
+
         updateScoreText();
+        mBarChartConfigurator.setup(mHabit, mBarChartRange);
     }
 
     private void getHabitFromExtras() {
@@ -133,8 +133,7 @@ public class DetailHabitActivity extends AppCompatActivity {
 
     private void updateScoreIfNeeded(int oldValue) {
         if (oldValue != mHabit.getRecord().getScore()) {
-            updateScoreText();
-            mBarChartConfigurator.setData(mHabit, mBarChartRange);
+            updateUI();
             FirebaseSyncUtils.applyChangesForHabit(mHabit);
         }
     }

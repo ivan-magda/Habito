@@ -100,6 +100,25 @@ public final class HabitoDateUtils {
                 && (lhsCal.get(Calendar.DAY_OF_YEAR) == rhsCal.get(Calendar.DAY_OF_YEAR));
     }
 
+    public static int getNumberOfWeeksInCurrentMonth() {
+        Calendar calendar = getCalendarWithTime(getStartOfCurrentMonth());
+        return calendar.getActualMaximum(Calendar.WEEK_OF_MONTH);
+    }
+
+    public static long getStartOfCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTimeInMillis();
+    }
+
+    public static long getEndOfCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return calendar.getTimeInMillis();
+    }
+
     private HabitoDateUtils() {
     }
 
