@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.barchart;
+package com.ivanmagda.habito.barchart.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

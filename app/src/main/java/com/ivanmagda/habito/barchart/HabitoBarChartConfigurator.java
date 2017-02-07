@@ -12,15 +12,17 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.ivanmagda.habito.barchart.formatters.MonthAxisValueFormatter;
+import com.ivanmagda.habito.barchart.formatters.WeekDayAxisValueFormatter;
+import com.ivanmagda.habito.barchart.formatters.YearAxisValueFormatter;
+import com.ivanmagda.habito.barchart.view.XYMarkerView;
 import com.ivanmagda.habito.models.Habit;
-import com.ivanmagda.habito.utils.HabitoDateUtils;
 import com.ivanmagda.habito.viewmodel.BarChartViewModel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-public final class BarChartConfigurator {
+public final class HabitoBarChartConfigurator {
 
     private static final int MAX_VISIBLE_VALUE_COUNT = 60;
 
@@ -28,17 +30,25 @@ public final class BarChartConfigurator {
     private IAxisValueFormatter mXAxisFormatter;
 
     private Habit mHabit;
-    private BarChartRange.DateRange mDateRange;
+    private HabitoBarChartRange.DateRange mDateRange;
+
+    private HabitoBarChartDataSource mDataSource;
     private BarChartViewModel mViewModel;
 
-    public BarChartConfigurator(BarChart barChart) {
+    public HabitoBarChartConfigurator(BarChart barChart) {
         this.mBarChart = barChart;
     }
 
-    public void setup(@NonNull final Habit habit, BarChartRange.DateRange dateRange) {
+    public void setup(@NonNull final Habit habit, HabitoBarChartRange.DateRange dateRange) {
         this.mHabit = habit;
         this.mDateRange = dateRange;
         this.mViewModel = new BarChartViewModel(habit, dateRange);
+        this.mDataSource = new HabitoBarChartDataSource(habit, dateRange, new HabitoBarChartDataSource.Delegate() {
+            @Override
+            public int numberOfEntries() {
+                return mViewModel.getXAxisLabelCount();
+            }
+        });
         configureBarChart();
         setData();
     }
@@ -62,12 +72,22 @@ public final class BarChartConfigurator {
     }
 
     private void configureXAxis() {
-        mXAxisFormatter = new WeekDayAxisValueFormatter();
+        switch (mDateRange) {
+            case WEEK:
+                mXAxisFormatter = new WeekDayAxisValueFormatter();
+                break;
+            case MONTH:
+                mXAxisFormatter = new MonthAxisValueFormatter();
+                break;
+            case YEAR:
+                mXAxisFormatter = new YearAxisValueFormatter();
+                break;
+        }
 
         XAxis xAxis = mBarChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // only intervals of 1 day
+        xAxis.setGranularity(1f);
         xAxis.setLabelCount(mViewModel.getXAxisLabelCount());
         xAxis.setValueFormatter(mXAxisFormatter);
     }
@@ -103,9 +123,13 @@ public final class BarChartConfigurator {
     }
 
     private void setData() {
-        List<BarEntry> yValues = createData();
-        BarDataSet barDataSet;
+        List<BarEntry> yValues = mDataSource.buildData();
+        final int labelCount = ((int) Math.floor(mDataSource.getMaxValue() / 2)) + 1;
 
+        YAxis leftAxis = mBarChart.getAxisLeft();
+        leftAxis.setLabelCount(labelCount, false);
+
+        BarDataSet barDataSet;
         if (mBarChart.getData() != null &&
                 mBarChart.getData().getDataSetCount() > 0) {
             barDataSet = (BarDataSet) mBarChart.getData().getDataSetByIndex(0);
@@ -126,43 +150,6 @@ public final class BarChartConfigurator {
 
             mBarChart.setData(data);
         }
-    }
-
-    private List<BarEntry> createData() {
-        ArrayList<BarEntry> yValues = new ArrayList<>();
-        List<Long> checkmarks = mHabit.getRecord().getCheckmarks();
-        Calendar calendar = HabitoDateUtils.getCurrentCalendar();
-        int maxValueInAllRange = 0;
-
-        switch (mDateRange) {
-            case WEEK:
-                long thisWeek = HabitoDateUtils.getStartOfThisWeek();
-                for (int i = 0; i < 7; i++) {
-                    calendar.setTimeInMillis(thisWeek);
-                    calendar.add(Calendar.DATE, i);
-                    long targetDate = calendar.getTimeInMillis();
-
-                    int count = 0;
-                    for (long checkmarkDate : checkmarks) {
-                        if (HabitoDateUtils.sameDay(targetDate, checkmarkDate)) count++;
-                    }
-                    yValues.add(new BarEntry(i, count));
-
-                    if (count > maxValueInAllRange) maxValueInAllRange = count;
-                }
-                break;
-            case MONTH:
-                break;
-            case YEAR:
-                break;
-            default:
-                throw new IllegalArgumentException("Receive illegal date range");
-        }
-
-        YAxis leftAxis = mBarChart.getAxisLeft();
-        leftAxis.setLabelCount((int) Math.floor(maxValueInAllRange / 2) + 1, false);
-
-        return yValues;
     }
 
 }

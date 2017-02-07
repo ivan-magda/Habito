@@ -28,27 +28,37 @@ public final class HabitoDateUtils {
     }
 
     public static boolean isDateInCurrentWeek(long date) {
-        Calendar currentCalendar = getCurrentCalendar();
-        int week = currentCalendar.get(Calendar.WEEK_OF_YEAR);
-        int year = currentCalendar.get(Calendar.YEAR);
+        return isDatesInSameMonth(getCurrentCalendar().getTimeInMillis(),
+                getCalendarWithTime(date).getTimeInMillis());
+    }
 
-        Calendar targetCalendar = getCalendarWithTime(date);
-        int targetWeek = targetCalendar.get(Calendar.WEEK_OF_YEAR);
-        int targetYear = targetCalendar.get(Calendar.YEAR);
+    public static boolean isDatesInSameWeek(long lhsDate, long rhsDate) {
+        Calendar lhsCalendar = getCalendarWithTime(lhsDate);
+        int lhsWeek = lhsCalendar.get(Calendar.WEEK_OF_YEAR);
+        int lhsYear = lhsCalendar.get(Calendar.YEAR);
 
-        return (week == targetWeek) && (year == targetYear);
+        Calendar rhsCalendar = getCalendarWithTime(rhsDate);
+        int rhsWeek = rhsCalendar.get(Calendar.WEEK_OF_YEAR);
+        int rhsYear = rhsCalendar.get(Calendar.YEAR);
+
+        return (lhsWeek == rhsWeek) && (lhsYear == rhsYear);
     }
 
     public static boolean isDateInCurrentMonth(long date) {
-        Calendar currentCalendar = getCurrentCalendar();
-        int month = currentCalendar.get(Calendar.MONTH);
-        int year = currentCalendar.get(Calendar.YEAR);
+        return isDatesInSameMonth(getCurrentCalendar().getTimeInMillis(),
+                getCalendarWithTime(date).getTimeInMillis());
+    }
 
-        Calendar targetCalendar = getCalendarWithTime(date);
-        int targetMonth = targetCalendar.get(Calendar.MONTH);
-        int targetYear = targetCalendar.get(Calendar.YEAR);
+    public static boolean isDatesInSameMonth(long lhs, long rhs) {
+        Calendar lhsCalendar = getCalendarWithTime(lhs);
+        int lhsMonth = lhsCalendar.get(Calendar.MONTH);
+        int lhsYear = lhsCalendar.get(Calendar.YEAR);
 
-        return (month == targetMonth) && (year == targetYear);
+        Calendar rhsCalendar = getCalendarWithTime(rhs);
+        int rhsMonth = rhsCalendar.get(Calendar.MONTH);
+        int rhsYear = rhsCalendar.get(Calendar.YEAR);
+
+        return (lhsMonth == rhsMonth) && (lhsYear == rhsYear);
     }
 
     public static boolean isDateInCurrentYear(long date) {
@@ -78,7 +88,7 @@ public final class HabitoDateUtils {
         }
     }
 
-    public static long getStartOfThisWeek() {
+    public static long getStartOfCurrentWeek() {
         Calendar calendar = getCurrentCalendar();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.clear(Calendar.MINUTE);
@@ -91,7 +101,7 @@ public final class HabitoDateUtils {
         return calendar.getTimeInMillis();
     }
 
-    public static boolean sameDay(long lhs, long rhs) {
+    public static boolean isSameDay(long lhs, long rhs) {
         Calendar lhsCal = Calendar.getInstance();
         Calendar rhsCal = Calendar.getInstance();
         lhsCal.setTimeInMillis(lhs);
@@ -106,16 +116,20 @@ public final class HabitoDateUtils {
     }
 
     public static long getStartOfCurrentMonth() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        Calendar calendar = getCurrentCalendar();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         return calendar.getTimeInMillis();
     }
 
     public static long getEndOfCurrentMonth() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        Calendar calendar = getCurrentCalendar();
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return calendar.getTimeInMillis();
+    }
+
+    public static long getStartOfCurrentYear() {
+        Calendar calendar = getCurrentCalendar();
+        calendar.set(Calendar.MONTH, 1);
         return calendar.getTimeInMillis();
     }
 

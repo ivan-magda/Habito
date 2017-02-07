@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.barchart;
+package com.ivanmagda.habito.barchart.formatters;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
@@ -16,7 +16,7 @@ public class WeekDayAxisValueFormatter implements IAxisValueFormatter {
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(HabitoDateUtils.getStartOfThisWeek());
+        calendar.setTimeInMillis(HabitoDateUtils.getStartOfCurrentWeek());
         calendar.add(Calendar.DATE, (int) value);
         return FORMATTER.format(calendar.getTime());
     }

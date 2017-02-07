@@ -4,4 +4,10 @@
         <item>@string/off</item>
         <item>@string/select</item>
     </string-array>
+
+    <string-array name="bar_chart_ranges">
+        <item>@string/week</item>
+        <item>@string/month</item>
+        <item>@string/year</item>
+    </string-array>
 </resources>

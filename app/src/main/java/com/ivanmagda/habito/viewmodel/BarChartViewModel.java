@@ -1,15 +1,15 @@
 package com.ivanmagda.habito.viewmodel;
 
-import com.ivanmagda.habito.barchart.BarChartRange;
+import com.ivanmagda.habito.barchart.HabitoBarChartRange;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.utils.HabitoDateUtils;
 
 public class BarChartViewModel {
 
     private Habit mHabit;
-    private BarChartRange.DateRange mDateRange;
+    private HabitoBarChartRange.DateRange mDateRange;
 
-    public BarChartViewModel(Habit habit, BarChartRange.DateRange dateRange) {
+    public BarChartViewModel(Habit habit, HabitoBarChartRange.DateRange dateRange) {
         this.mHabit = habit;
         this.mDateRange = dateRange;
     }

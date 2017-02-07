@@ -8,20 +8,27 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.ivanmagda.habito.R;
-import com.ivanmagda.habito.barchart.BarChartConfigurator;
-import com.ivanmagda.habito.barchart.BarChartRange;
+import com.ivanmagda.habito.barchart.HabitoBarChartConfigurator;
+import com.ivanmagda.habito.barchart.HabitoBarChartRange;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.sync.FirebaseSyncUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DetailHabitActivity extends AppCompatActivity {
+public class DetailHabitActivity extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener {
 
     public static final String HABIT_EXTRA_KEY = "com.ivanmagda.habito.activities.habit";
 
@@ -34,9 +41,12 @@ public class DetailHabitActivity extends AppCompatActivity {
     @BindView(R.id.tv_score)
     TextView scoreTextView;
 
+    @BindView(R.id.sp_date_range)
+    Spinner dateRangeSpinner;
+
     private Habit mHabit;
-    private BarChartConfigurator mBarChartConfigurator;
-    private BarChartRange.DateRange mBarChartRange = BarChartRange.DateRange.WEEK;
+    private HabitoBarChartConfigurator mBarChartConfigurator;
+    private HabitoBarChartRange.DateRange mBarChartRange = HabitoBarChartRange.DateRange.WEEK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +91,10 @@ public class DetailHabitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_habit);
         ButterKnife.bind(this);
 
-        mBarChartConfigurator = new BarChartConfigurator(barChart);
+        mBarChartConfigurator = new HabitoBarChartConfigurator(barChart);
 
         getHabitFromExtras();
+        configureDateSpinner();
         updateUI();
     }
 
@@ -151,6 +162,28 @@ public class DetailHabitActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(android.R.string.no, null)
                 .show();
+    }
+
+    private void configureDateSpinner() {
+        List<String> dateRanges = HabitoBarChartRange.allStringValues(this);
+        ArrayAdapter<String> resetAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
+                dateRanges);
+        dateRangeSpinner.setAdapter(resetAdapter);
+        dateRangeSpinner.setSelection(dateRanges.indexOf(mBarChartRange.stringValue(this)));
+        dateRangeSpinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String selected = parent.getItemAtPosition(position).toString();
+        if (!selected.equals(mBarChartRange.stringValue(this))) {
+            mBarChartRange = HabitoBarChartRange.DateRange.fromString(selected, this);
+            updateUI();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
     }
 
 }

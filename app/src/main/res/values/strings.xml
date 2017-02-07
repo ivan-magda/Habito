@@ -16,6 +16,11 @@
     <string name="preference_sort_file_key" translatable="false">com.ivanmagda.habito.SORT_PREFERENCE_FILE_KEY</string>
     <string name="saved_sort_order" translatable="false">sort_order</string>
 
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="never">Never</string>
+
     <!--Auth-->
     <string name="auth_success_msg">You\'re now signed in. Hi there!</string>
     <string name="auth_canceled_msg">Sign in canceled</string>
