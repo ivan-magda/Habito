@@ -49,9 +49,31 @@
 
         <service
             android:name=".sync.ReminderIntentService"
-            android:exported="true">
+            android:exported="true" />
 
-        </service>
+        <receiver
+            android:name=".widget.DetailWidgetProvider"
+            android:enabled="true"
+            android:label="@string/title_widget_detail">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.ivanmagda.habito.DATA_FETCHED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_detail" />
+        </receiver>
+
+        <service
+            android:name=".widget.DetailWidgetRemoteViewsService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".sync.WidgetFetchService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@
     <string name="activity_create_label">Create</string>
     <string name="activity_edit_label">Edit</string>
     <string name="activity_detail_label">Detail</string>
+    <string name="title_widget_detail">Habito Details</string>
 
     <string name="no_data_available">No data available.</string>
 
