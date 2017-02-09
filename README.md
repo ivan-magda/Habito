@@ -9,9 +9,11 @@ Habito can help you gain insight and motivation with detailed graphs and statist
 ## Screenshots
 
 <img src="https://github.com/vanyaland/Habito/blob/master/screenshots/thumbs/app-main-list.png">
-<img src="https://github.com/vanyaland/Habito/blob/master/screenshots/thumbs/app-detail-bar-chart-1.png" hspace="0">
+<img src="https://github.com/vanyaland/Habito/blob/master/screenshots/thumbs/app-detail-bar-chart-1.png">
+<img src="https://github.com/vanyaland/Habito/blob/master/screenshots/thumbs/app-detail-bar-chart-2.png">
 <img src="https://github.com/vanyaland/Habito/blob/master/screenshots/thumbs/app-create.png">
-<img src="https://github.com/vanyaland/Habito/blob/master/screenshots/thumbs/widget-list.png" hspace="0">
+<img src="https://github.com/vanyaland/Habito/blob/master/screenshots/thumbs/app-edit.png">
+<img src="https://github.com/vanyaland/Habito/blob/master/screenshots/thumbs/widget-list.png">
 
 ## Installation
 1. Go to the [Firebase console](https://console.firebase.google.com/) and create a Firebase project, if you don't already have one. If you already have an existing Google project associated with your mobile app, click Import Google Project. Otherwise, click Create New Project.
