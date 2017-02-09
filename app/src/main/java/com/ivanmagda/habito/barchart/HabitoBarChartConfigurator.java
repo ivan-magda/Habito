@@ -13,11 +13,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.ivanmagda.habito.barchart.formatters.HabitoBarChartValueFormatter;
 import com.ivanmagda.habito.barchart.formatters.HabitoBaseIAxisValueFormatter;
-import com.ivanmagda.habito.barchart.formatters.MonthAxisValueFormatter;
-import com.ivanmagda.habito.barchart.formatters.WeekDayAxisValueFormatter;
-import com.ivanmagda.habito.barchart.formatters.YearAxisValueFormatter;
 import com.ivanmagda.habito.barchart.view.XYMarkerView;
-import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.view.model.HabitoBarChartViewModel;
 
 import java.util.ArrayList;
@@ -30,9 +26,6 @@ public final class HabitoBarChartConfigurator {
     private BarChart mBarChart;
     private HabitoBaseIAxisValueFormatter mXAxisFormatter;
 
-    private Habit mHabit;
-    private HabitoBarChartRange.DateRange mDateRange;
-
     private HabitoBarChartDataSource mDataSource;
     private HabitoBarChartViewModel mViewModel;
 
@@ -40,16 +33,10 @@ public final class HabitoBarChartConfigurator {
         this.mBarChart = barChart;
     }
 
-    public void setup(@NonNull final Habit habit, HabitoBarChartRange.DateRange dateRange) {
-        this.mHabit = habit;
-        this.mDateRange = dateRange;
-        this.mViewModel = new HabitoBarChartViewModel(habit, dateRange);
-        this.mDataSource = new HabitoBarChartDataSource(habit, dateRange, new HabitoBarChartDataSource.Delegate() {
-            @Override
-            public int numberOfEntries() {
-                return mViewModel.getXAxisLabelCount();
-            }
-        });
+    public void setup(@NonNull final HabitoBarChartDataSource dataSource,
+                      @NonNull final HabitoBarChartViewModel viewModel) {
+        this.mDataSource = dataSource;
+        this.mViewModel = viewModel;
         configureBarChart();
         setData();
     }
@@ -73,23 +60,12 @@ public final class HabitoBarChartConfigurator {
     }
 
     private void configureXAxis() {
-        switch (mDateRange) {
-            case WEEK:
-                mXAxisFormatter = new WeekDayAxisValueFormatter();
-                break;
-            case MONTH:
-                mXAxisFormatter = new MonthAxisValueFormatter();
-                break;
-            case YEAR:
-                mXAxisFormatter = new YearAxisValueFormatter();
-                break;
-        }
-
+        mXAxisFormatter = mViewModel.getXAxisFormatter();
         XAxis xAxis = mBarChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f);
-        xAxis.setLabelCount(mViewModel.getXAxisLabelCount());
+        xAxis.setLabelCount(mDataSource.getNumberOfEntries());
         xAxis.setValueFormatter(mXAxisFormatter);
     }
 
@@ -124,7 +100,7 @@ public final class HabitoBarChartConfigurator {
     }
 
     private void setData() {
-        List<BarEntry> yValues = mDataSource.buildData();
+        List<BarEntry> yValues = mDataSource.getData();
         final int labelCount = ((int) Math.floor(mDataSource.getMaxValue() / 2)) + 1;
 
         YAxis leftAxis = mBarChart.getAxisLeft();

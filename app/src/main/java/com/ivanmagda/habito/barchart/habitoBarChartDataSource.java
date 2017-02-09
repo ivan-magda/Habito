@@ -13,20 +13,19 @@ import java.util.List;
 
 public final class HabitoBarChartDataSource {
 
-    public interface Delegate {
-        int numberOfEntries();
-    }
-
     private Habit mHabit;
+    private List<BarEntry> mEntries;
     private HabitoBarChartRange.DateRange mDateRange;
-    private Delegate mDelegate;
     private int mMaxValue = 0;
 
-    public HabitoBarChartDataSource(@NonNull Habit habit, @NonNull HabitoBarChartRange.DateRange dateRange,
-                                    @NonNull Delegate delegate) {
+    public HabitoBarChartDataSource(@NonNull Habit habit,
+                                    @NonNull HabitoBarChartRange.DateRange dateRange) {
         this.mHabit = habit;
         this.mDateRange = dateRange;
-        this.mDelegate = delegate;
+    }
+
+    public void prefetch() {
+        buildData();
     }
 
     /**
@@ -36,24 +35,42 @@ public final class HabitoBarChartDataSource {
         return mMaxValue;
     }
 
-    public List<BarEntry> buildData() {
-        ArrayList<BarEntry> entries = new ArrayList<>();
+    public List<BarEntry> getData() {
+        if (mEntries == null) {
+            buildData();
+        }
+        return mEntries;
+    }
+
+    public int getNumberOfEntries() {
+        switch (mDateRange) {
+            case WEEK:
+                return 7;
+            case MONTH:
+                return HabitoDateUtils.getNumberOfWeeksInCurrentMonth();
+            case YEAR:
+                return 12;
+            default:
+                throw new IllegalArgumentException("Receive illegal date range");
+        }
+    }
+
+    private void buildData() {
+        mEntries = new ArrayList<>();
         long baseDate = getBaseDate();
         mMaxValue = 0;
 
-        for (int i = 0; i < mDelegate.numberOfEntries(); i++) {
+        for (int i = 0; i < getNumberOfEntries(); i++) {
             long currentDate = getDateForEntryAtIndex(baseDate, i);
 
             int countInRange = 0;
             for (long checkmarkDate : mHabit.getRecord().getCheckmarks()) {
                 if (isMeetCompareRule(currentDate, checkmarkDate)) countInRange++;
             }
-            entries.add(new BarEntry(i, countInRange));
+            mEntries.add(new BarEntry(i, countInRange));
 
             if (countInRange > mMaxValue) mMaxValue = countInRange;
         }
-
-        return entries;
     }
 
     private long getBaseDate() {
