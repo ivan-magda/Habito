@@ -6,8 +6,11 @@ import android.support.annotation.NonNull;
 
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.barchart.HabitoBarChartRange;
+import com.ivanmagda.habito.barchart.formatters.HabitoBaseIAxisValueFormatter;
+import com.ivanmagda.habito.barchart.formatters.MonthAxisValueFormatter;
+import com.ivanmagda.habito.barchart.formatters.WeekDayAxisValueFormatter;
+import com.ivanmagda.habito.barchart.formatters.YearAxisValueFormatter;
 import com.ivanmagda.habito.models.Habit;
-import com.ivanmagda.habito.utils.HabitoDateUtils;
 import com.ivanmagda.habito.utils.HabitoStringUtils;
 
 public class HabitoBarChartViewModel {
@@ -20,14 +23,14 @@ public class HabitoBarChartViewModel {
         this.mDateRange = dateRange;
     }
 
-    public int getXAxisLabelCount() {
+    public HabitoBaseIAxisValueFormatter getXAxisFormatter() {
         switch (mDateRange) {
             case WEEK:
-                return 7;
+                return new WeekDayAxisValueFormatter();
             case MONTH:
-                return HabitoDateUtils.getNumberOfWeeksInCurrentMonth();
+                return new MonthAxisValueFormatter();
             case YEAR:
-                return 12;
+                return new YearAxisValueFormatter();
             default:
                 throw new IllegalArgumentException("Receive illegal date range");
         }

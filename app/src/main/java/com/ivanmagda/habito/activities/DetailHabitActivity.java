@@ -3,6 +3,8 @@ package com.ivanmagda.habito.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +19,13 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.barchart.HabitoBarChartConfigurator;
+import com.ivanmagda.habito.barchart.HabitoBarChartDataLoader;
+import com.ivanmagda.habito.barchart.HabitoBarChartDataSource;
 import com.ivanmagda.habito.barchart.HabitoBarChartRange;
 import com.ivanmagda.habito.models.Habit;
 import com.ivanmagda.habito.sync.FirebaseSyncUtils;
 import com.ivanmagda.habito.view.model.HabitDetailViewModel;
+import com.ivanmagda.habito.view.model.HabitoBarChartViewModel;
 
 import java.util.List;
 
@@ -29,11 +34,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DetailHabitActivity extends AppCompatActivity
-        implements AdapterView.OnItemSelectedListener {
+        implements AdapterView.OnItemSelectedListener,
+        LoaderManager.LoaderCallbacks<HabitoBarChartDataSource> {
 
     public static final String HABIT_EXTRA_KEY = "com.ivanmagda.habito.activities.habit";
 
     private static final String TAG = "DetailHabitActivity";
+
+    private static final int BAR_CHART_DATA_SOURCE_LOADER = 1;
     private static final int RC_EDIT_HABIT = 1234;
 
     @BindView(R.id.bar_chart)
@@ -111,9 +119,9 @@ public class DetailHabitActivity extends AppCompatActivity
 
         String scoreString = mViewModel.getScoreString(mHabit.getRecord().getScore());
         scoreTextView.setText(scoreString);
-
         dateRangeTextView.setText(mViewModel.getDateRangeString());
-        mBarChartConfigurator.setup(mHabit, mBarChartRange);
+
+        getSupportLoaderManager().restartLoader(BAR_CHART_DATA_SOURCE_LOADER, null, this);
     }
 
     private void getHabitFromExtras() {
@@ -188,6 +196,24 @@ public class DetailHabitActivity extends AppCompatActivity
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    @Override
+    public Loader<HabitoBarChartDataSource> onCreateLoader(int id, Bundle args) {
+        return new HabitoBarChartDataLoader(this, mHabit, mBarChartRange);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<HabitoBarChartDataSource> loader,
+                               HabitoBarChartDataSource dataSource) {
+        HabitoBarChartViewModel viewModel = new HabitoBarChartViewModel(mHabit, mBarChartRange);
+        mBarChartConfigurator.setup(dataSource, viewModel);
+        barChart.animateY(1000);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<HabitoBarChartDataSource> loader) {
+        barChart.clear();
     }
 
 }
