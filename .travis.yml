@@ -20,5 +20,5 @@
      - addon-google_apis-google-19
      - sys-img-armeabi-v7a-android-25
 
-before_install:
+before_script:
 - chmod +x ./gradlew
