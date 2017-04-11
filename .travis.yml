@@ -20,4 +20,4 @@
      - addon-google_apis-google-19
 
  script:
-   - ./gradlew build
+   - ./gradle build
