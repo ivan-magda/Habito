@@ -14,16 +14,7 @@
      - android-25
 
      # Additional components
-     #- extra-google-google_play_services
+     - extra-google-google_play_services
      - extra-google-m2repository
      - extra-android-m2repository
      - addon-google_apis-google-19
-     - sys-img-armeabi-v7a-android-25
-
-env:
-  global:
-   # install timeout in minutes (2 minutes by default)
-    - ADB_INSTALL_TIMEOUT=10
-
-before_script:
-  - android-wait-for-emulator
