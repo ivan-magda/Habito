@@ -1,29 +1,41 @@
- language: android
- jdk: oraclejdk8 # We need this if your sdk version is 24
- sudo: false
- android:
-   components:
-     # Uncomment the lines below if you want to
-     # use the latest revision of Android SDK Tools
-     - platform-tools
-     - tools
+sudo: false
+language: android
+jdk:
+  - oraclejdk8
+before_install:
+- chmod +x gradlew
+env:
+  global:
+   - ANDROID_API_LEVEL=25
+   - EMULATOR_API_LEVEL=25
+   - ANDROID_BUILD_TOOLS_VERSION=25.0.2
+   - ANDROID_ABI=google_apis/armeabi-v7a
+   - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - android-$ANDROID_API_LEVEL
+    - android-$EMULATOR_API_LEVEL
+    - extra
+    - add-on
+    - extra-google-m2repository
+    - extra-android-m2repository
 
-     # The BuildTools version used by your project
-     - build-tools-25.0.2
+    # Google Play Services
+    - extra-google-google_play_services
+    # Support library
+    - extra-android-support
 
-     # The SDK version used to compile your project
-     - android-25
+    - addon-google_apis-google-$ANDROID_API_LEVEL
+    - addon-google_apis-google-$EMULATOR_API_LEVEL
 
-     # Additional components
-     - extra-google-google_play_services
-     - extra-google-m2repository
-     - extra-android-m2repository
-     - addon-google_apis-google-19
-     - sys-img-armeabi-v7a-android-25
-
-# Emulator Management: Create, Start and Wait
+    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
+    - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
+    
 before_script:
-  - echo no | android create avd --force -n test -t android-25 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+    - echo no | android create avd --force -n test -t android-25 --abi armeabi-v7a
+    - emulator -avd test -no-skin -no-audio -no-window &
+    - android-wait-for-emulator
+    - adb shell input keyevent 82 &
