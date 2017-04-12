@@ -1,5 +1,5 @@
  language: android
- java: oraclejdk8 # We need this if your sdk version is 24
+ jdk: oraclejdk8 # We need this if your sdk version is 24
  android:
    components:
      # Uncomment the lines below if you want to
