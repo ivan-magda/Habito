@@ -22,8 +22,13 @@
 
 install: true
 
+env:
+  global:
+   # install timeout in minutes (2 minutes by default)
+    - ADB_INSTALL_TIMEOUT=8
+
 before_script:
-  - chmod +x gradlew
+  - android-wait-for-emulator
 
 script:
   - ./gradlew assembleRelease --stacktrace
