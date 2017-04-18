@@ -18,5 +18,8 @@ components:
 - sys-img-armeabi-v7a-android-22
 - sys-img-armeabi-v7a-android-17
 
+before_script:
+- cp -r extra/android-sdk-license $ANDROID_HOME/licenses
+
 before_install:
 - chmod +x gradlew
