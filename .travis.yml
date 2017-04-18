@@ -3,10 +3,10 @@ jdk: oraclejdk8
 android:
 components:
 - tools
-- platform-tools
-- tools
 - build-tools-25.0.2
+
 - android-25
+- platform-tools
 - extra-android-m2repository
 - extra-google-m2repository
 - extra-android-support
@@ -20,8 +20,3 @@ components:
 
 before_install:
 - chmod +x gradlew
-
-licenses:
-- 'android-sdk-preview-license-.+'
-- 'android-sdk-license-.+'
-- 'google-gdk-license-.+'
