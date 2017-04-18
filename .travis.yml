@@ -6,7 +6,7 @@ components:
 # use the latest revision of Android SDK Tools
 
 # The BuildTools version used by your project
-
+- build-tools-25.0.2
 
 # The SDK version used to compile your project
 - android-25
@@ -25,3 +25,8 @@ components:
 
 before_install:
 - chmod +x gradlew
+
+licenses:
+- 'android-sdk-preview-license-.+'
+- 'android-sdk-license-.+'
+- 'google-gdk-license-.+'
