@@ -5,7 +5,7 @@ android {
         HabitoKeyConfig {
             keyAlias 'HabitoKey'
             keyPassword 'asdasdasd'
-            storeFile file('E:/Androidprojects/Habito/keystore.jks')
+            storeFile file('keystore.jks')
             storePassword 'asdasdasd'
         }
     }
