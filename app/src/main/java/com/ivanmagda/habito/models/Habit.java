@@ -25,6 +25,11 @@ public final class Habit implements Parcelable, Cloneable {
     }
 
     @Override
+    public Habit clone() throws CloneNotSupportedException {
+        return (Habit) super.clone();
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
