@@ -20,6 +20,12 @@ components:
 
 before_script:
 - cp -r extra/licenses $ANDROID_HOME/licenses
+- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+- emulator -avd test -no-skin -no-audio -no-window &
+
+script:
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
 
 before_install:
 - chmod +x gradlew
