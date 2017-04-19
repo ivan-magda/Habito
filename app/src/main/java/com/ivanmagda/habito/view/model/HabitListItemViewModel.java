@@ -78,6 +78,7 @@ public class HabitListItemViewModel {
     }
 
     private String resetFreqStringWithParameter(String freqPeriod) {
+
         return mContext.getResources().getString(R.string.list_item_reset_freq, freqPeriod);
     }
 

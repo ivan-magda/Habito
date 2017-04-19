@@ -16,11 +16,15 @@ public final class HabitoListUtils {
     }
 
     public List<Long> filteredBy(ResetFrequency.Type type) {
-        if (type == ResetFrequency.Type.NEVER) return mDates;
+        if (type == ResetFrequency.Type.NEVER){
+            return mDates;
+        }
 
         List<Long> resultList = new ArrayList<>(mDates.size());
         for (Long date : mDates) {
-            if (HabitoDateUtils.isDateInType(date, type)) resultList.add(date);
+            if (HabitoDateUtils.isDateInType(date, type)){
+                resultList.add(date);
+            }
         }
 
         return resultList;

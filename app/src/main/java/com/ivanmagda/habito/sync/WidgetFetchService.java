@@ -21,7 +21,7 @@ public class WidgetFetchService extends Service {
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private Query mUserHabitsQuery;
     private ValueEventListener mValueEventListener;
-    protected static List<Habit> habitList = new ArrayList<>();
+    public static List<Habit> habitList = new ArrayList<>();
 
     @Override
     public IBinder onBind(Intent intent) {
