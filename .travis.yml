@@ -6,6 +6,7 @@ components:
 - build-tools-25.0.2
 
 - android-25
+- android-22
 - platform-tools
 - extra-android-m2repository
 - extra-google-m2repository
@@ -16,7 +17,6 @@ components:
 # Specify at least one system image,
 # if you need to run emulator(s) during your tests
 - sys-img-armeabi-v7a-android-22
-- sys-img-armeabi-v7a-android-17
 
 before_script:
 - cp -r extra/licenses $ANDROID_HOME/licenses
