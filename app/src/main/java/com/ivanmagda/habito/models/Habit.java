@@ -10,6 +10,18 @@ public final class Habit implements Parcelable, Cloneable {
     private String mId;
     private HabitRecord mRecord;
 
+    public static final Parcelable.Creator<Habit> CREATOR = new Parcelable.Creator<Habit>() {
+        @Override
+        public Habit createFromParcel(Parcel parcel) {
+            return new Habit(parcel);
+        }
+
+        @Override
+        public Habit[] newArray(int size) {
+            return new Habit[size];
+        }
+    };
+
     public Habit() {
         this.mRecord = new HabitRecord();
     }
@@ -25,6 +37,11 @@ public final class Habit implements Parcelable, Cloneable {
     }
 
     @Override
+    public Habit clone() throws CloneNotSupportedException {
+        return (Habit) super.clone();
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -35,17 +52,7 @@ public final class Habit implements Parcelable, Cloneable {
         dest.writeParcelable(mRecord, flags);
     }
 
-    public static final Parcelable.Creator<Habit> CREATOR = new Parcelable.Creator<Habit>() {
-        @Override
-        public Habit createFromParcel(Parcel parcel) {
-            return new Habit(parcel);
-        }
 
-        @Override
-        public Habit[] newArray(int size) {
-            return new Habit[size];
-        }
-    };
 
     public Habit copy() {
         return new Habit(mId, mRecord.copy());
@@ -68,8 +75,8 @@ public final class Habit implements Parcelable, Cloneable {
     }
 
     public boolean isReminderOn() {
-        return (mRecord.getReminderHour() != HabitRecord.REMINDER_OFF &&
-                mRecord.getReminderMin() != HabitRecord.REMINDER_OFF);
+        return mRecord.getReminderHour() != HabitRecord.REMINDER_OFF &&
+                mRecord.getReminderMin() != HabitRecord.REMINDER_OFF;
     }
 
     public synchronized void increaseScore() {

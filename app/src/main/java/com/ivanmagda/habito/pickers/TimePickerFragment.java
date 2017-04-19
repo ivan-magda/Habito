@@ -23,8 +23,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     public static final String HOUR_EXTRA_KEY = "hour";
     public static final String MINUTES_EXTRA_KEY = "minutes";
 
-    private static final String TAG = "TimePickerFragment";
-
     /**
      * The callback interface used to indicate the user is done filling in
      * the time (they clicked on the 'Set' button).
@@ -79,7 +77,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.off), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (mOnTimeSetListener != null) mOnTimeSetListener.onCancel();
+                if (mOnTimeSetListener != null) {
+                    mOnTimeSetListener.onCancel();
+                }
             }
         });
         return dialog;
@@ -87,7 +87,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        if (mOnTimeSetListener != null) mOnTimeSetListener.onTimeSet(view, hourOfDay, minute);
+        if (mOnTimeSetListener != null) {
+            mOnTimeSetListener.onTimeSet(view, hourOfDay, minute);
+        }
     }
 
     public void setOnTimeSetListener(OnTimeSetListener onTimeSetListener) {

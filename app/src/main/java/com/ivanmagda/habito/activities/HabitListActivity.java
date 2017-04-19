@@ -231,7 +231,8 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     }
 
     private void attachDatabaseReadListener() {
-        if (mValueEventListener != null) return;
+        if (mValueEventListener != null)
+            return;
 
         showProgressIndicator();
 

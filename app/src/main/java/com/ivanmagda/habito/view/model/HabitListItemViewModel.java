@@ -17,8 +17,6 @@ public class HabitListItemViewModel {
     private Habit mHabit;
     private Context mContext;
 
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-
     public HabitListItemViewModel(Context context) {
         this.mContext = context;
     }
@@ -62,7 +60,7 @@ public class HabitListItemViewModel {
                 return resetFreqStringWithParameter(ResetFrequency.YEAR);
             case ResetFrequency.NEVER:
                 Date date = new Date(mHabit.getRecord().getCreatedAt());
-                return resources.getString(R.string.list_item_reset_never, FORMAT.format(date));
+                return resources.getString(R.string.list_item_reset_never, new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(date));
             default:
                 throw new IllegalArgumentException("Unsupported reset freq time");
         }
@@ -80,6 +78,7 @@ public class HabitListItemViewModel {
     }
 
     private String resetFreqStringWithParameter(String freqPeriod) {
+
         return mContext.getResources().getString(R.string.list_item_reset_freq, freqPeriod);
     }
 

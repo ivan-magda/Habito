@@ -9,8 +9,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.ivanmagda.habito.models.Habit;
 
 public final class HabitoAnalytics {
-
     private static FirebaseAnalytics firebaseAnalytics;
+
+    private HabitoAnalytics() {
+    }
 
     public static void initAnalytics(Context context) {
         // Obtain the FirebaseAnalytics instance.
@@ -18,7 +20,8 @@ public final class HabitoAnalytics {
     }
 
     public static FirebaseAnalytics getInstance(Context context) {
-        if (firebaseAnalytics == null) initAnalytics(context);
+        if (firebaseAnalytics == null)
+            initAnalytics(context);
         return firebaseAnalytics;
     }
 
@@ -51,7 +54,6 @@ public final class HabitoAnalytics {
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, bundle);
     }
 
-    private HabitoAnalytics() {
-    }
+
 
 }

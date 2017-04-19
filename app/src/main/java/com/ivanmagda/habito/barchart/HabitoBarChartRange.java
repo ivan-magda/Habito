@@ -41,13 +41,15 @@ public final class HabitoBarChartRange {
         }
     }
 
+    private HabitoBarChartRange() {
+    }
+
     public static List<String> allStringValues(@NonNull final Context context) {
         return Arrays.asList(DateRange.WEEK.stringValue(context),
                 DateRange.MONTH.stringValue(context),
                 DateRange.YEAR.stringValue(context));
     }
 
-    private HabitoBarChartRange() {
-    }
+
 
 }
