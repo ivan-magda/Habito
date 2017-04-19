@@ -17,8 +17,6 @@ import java.util.Locale;
 @SuppressLint("ViewConstructor")
 public class XYMarkerView extends MarkerView {
 
-    private static SimpleDateFormat FORMATTER = new SimpleDateFormat("EEE, MMM d", Locale.getDefault());
-
     private TextView mContentTextView;
     private HabitoBaseIAxisValueFormatter mXAxisValueFormatter;
 
@@ -33,7 +31,7 @@ public class XYMarkerView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         long date = mXAxisValueFormatter.getDateForValue(e.getX());
-        mContentTextView.setText(FORMATTER.format(date) + ". " + String.valueOf((int) e.getY()));
+        mContentTextView.setText(new SimpleDateFormat("EEE, MMM d", Locale.getDefault()).format(date) + ". " + String.valueOf((int) e.getY()));
         super.refreshContent(e, highlight);
     }
 

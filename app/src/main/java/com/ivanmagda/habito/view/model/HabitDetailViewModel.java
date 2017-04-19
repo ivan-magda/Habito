@@ -11,13 +11,6 @@ import java.util.Locale;
 
 public final class HabitDetailViewModel {
 
-    private static final SimpleDateFormat WEEK_FORMAT = new SimpleDateFormat("d MMM yyyy",
-            Locale.getDefault());
-    private static final SimpleDateFormat MONTH_FORMAT = new SimpleDateFormat("d MMM yyyy",
-            Locale.getDefault());
-    private static final SimpleDateFormat YEAR_FORMAT = new SimpleDateFormat("MMM yyyy",
-            Locale.getDefault());
-
     private HabitoBarChartRange.DateRange mDateRange = HabitoBarChartRange.DateRange.WEEK;
 
     public HabitDetailViewModel() {
@@ -52,15 +45,18 @@ public final class HabitDetailViewModel {
     }
 
     private String getFormattedWeek(long start, long end) {
-        return formatDates(WEEK_FORMAT, start, end);
+        return formatDates(new SimpleDateFormat("d MMM yyyy",
+                Locale.getDefault()), start, end);
     }
 
     private String getFormattedMonth(long start, long end) {
-        return formatDates(MONTH_FORMAT, start, end);
+        return formatDates(new SimpleDateFormat("d MMM yyyy",
+                Locale.getDefault()), start, end);
     }
 
     private String getFormattedYear(long start, long end) {
-        return formatDates(YEAR_FORMAT, start, end);
+        return formatDates(new SimpleDateFormat("MMM yyyy",
+                Locale.getDefault()), start, end);
     }
 
     private String formatDates(SimpleDateFormat dateFormat, long start, long end) {

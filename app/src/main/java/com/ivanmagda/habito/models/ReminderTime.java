@@ -10,8 +10,6 @@ public final class ReminderTime {
     private int mHour;
     private int mMinutes;
 
-    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("HH:mm", Locale.getDefault());
-
     public ReminderTime() {
         final Calendar c = Calendar.getInstance();
         this.mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -40,7 +38,7 @@ public final class ReminderTime {
     }
 
     public String getTimeString() {
-        return FORMATTER.format(getTodayReminderDate());
+        return new SimpleDateFormat("HH:mm", Locale.getDefault()).format(getTodayReminderDate());
     }
 
     public static String getTimeString(int hour, int minutes) {

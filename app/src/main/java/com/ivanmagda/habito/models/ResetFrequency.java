@@ -22,7 +22,7 @@ public class ResetFrequency {
     public static final String YEAR = "Year";
     public static final String NEVER = "Never";
 
-    public static final String[] ALL = new String[]{DAY, WEEK, MONTH, YEAR, NEVER};
+    protected static final String[] ALL = new String[]{DAY, WEEK, MONTH, YEAR, NEVER};
 
     private Type mType;
 
