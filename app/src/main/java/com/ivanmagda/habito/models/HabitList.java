@@ -64,7 +64,7 @@ public final class HabitList {
     }
 
     public void setSortOrder(SortOrder sortOrder) {
-        if (mSortOrder != sortOrder) {
+        if (!mSortOrder.equals(sortOrder)) {
             this.mSortOrder = sortOrder;
             sort();
         }
