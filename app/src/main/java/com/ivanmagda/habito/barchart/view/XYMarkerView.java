@@ -31,7 +31,7 @@ public class XYMarkerView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         long date = mXAxisValueFormatter.getDateForValue(e.getX());
-        mContentTextView.setText(new SimpleDateFormat("EEE, MMM d", Locale.getDefault()).format(date) + ". " + String.valueOf((int) e.getY()));
+        mContentTextView.setText(new StringBuilder().append(new SimpleDateFormat("EEE, MMM d", Locale.getDefault()).format(date)).append(". ").append(String.valueOf((int) e.getY())).toString());
         super.refreshContent(e, highlight);
     }
 

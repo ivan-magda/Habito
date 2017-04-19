@@ -39,8 +39,6 @@ public class DetailHabitActivity extends AppCompatActivity
 
     public static final String HABIT_EXTRA_KEY = "com.ivanmagda.habito.activities.habit";
 
-    private static final String TAG = "DetailHabitActivity";
-
     private static final int BAR_CHART_DATA_SOURCE_LOADER = 1;
     private static final int RC_EDIT_HABIT = 1234;
 

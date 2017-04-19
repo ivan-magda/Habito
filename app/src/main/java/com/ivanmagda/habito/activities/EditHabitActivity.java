@@ -42,8 +42,6 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
     public static final String EDIT_HABIT_RESULT = "com.ivanmagda.habito.activities.edit_result";
     public static final String EDIT_HABIT_EXTRA_KEY = "com.ivanmagda.habito.activities.edit";
 
-    private static final String TAG = "EditHabitActivity";
-
     @BindView(R.id.et_habit_name)
     EditText nameEditText;
 
@@ -98,8 +96,8 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            int titleId = (mOriginalHabit == null ? R.string.activity_create_label
-                    : R.string.activity_edit_label);
+            int titleId = mOriginalHabit == null ? R.string.activity_create_label
+                    : R.string.activity_edit_label;
             actionBar.setTitle(titleId);
         }
 
@@ -117,8 +115,8 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
                 resetFrequencies);
         resetFrequencySpinner.setAdapter(resetAdapter);
         resetFrequencySpinner.setPrompt(getResources().getString(R.string.spinner_prompt));
-        String selection = (mOriginalHabit == null ? ResetFrequency.NEVER
-                : mOriginalHabit.getRecord().getResetFreq());
+        String selection = mOriginalHabit == null ? ResetFrequency.NEVER
+                : mOriginalHabit.getRecord().getResetFreq();
         resetFrequencySpinner.setSelection(resetFrequencies.indexOf(selection));
         resetFrequencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -204,7 +202,8 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
 
     private void save() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null || !isInputCorrect()) return;
+        if (currentUser == null || !isInputCorrect())
+            return;
 
         putChanges();
 

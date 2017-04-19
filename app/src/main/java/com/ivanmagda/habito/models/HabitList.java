@@ -80,16 +80,16 @@ public final class HabitList {
     }
 
     private void sort() {
-        if (mHabits.isEmpty()) return;
-        switch (mSortOrder) {
-            case NAME:
-                Collections.sort(mHabits, new SortByName());
-                break;
-            case DATE:
-                // Sort in decreasing order.
-                Collections.sort(mHabits, new SortByDate());
-                Collections.reverse(mHabits);
-                break;
+        if (mHabits.isEmpty())
+            return;
+
+        if(mSortOrder == SortOrder.NAME) {
+            Collections.sort(mHabits, new SortByName());
+        }
+        else if(mSortOrder == SortOrder.DATE) {
+            // Sort in decreasing order.
+            Collections.sort(mHabits, new SortByDate());
+            Collections.reverse(mHabits);
         }
     }
 

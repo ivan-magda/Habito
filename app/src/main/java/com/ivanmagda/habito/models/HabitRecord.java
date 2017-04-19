@@ -27,6 +27,18 @@ public final class HabitRecord implements Parcelable {
     private int score;
     private List<Long> checkmarks;
 
+    public static final Parcelable.Creator<HabitRecord> CREATOR = new Parcelable.Creator<HabitRecord>() {
+        @Override
+        public HabitRecord createFromParcel(Parcel parcel) {
+            return new HabitRecord(parcel);
+        }
+
+        @Override
+        public HabitRecord[] newArray(int size) {
+            return new HabitRecord[size];
+        }
+    };
+
     public HabitRecord() {
         long now = System.currentTimeMillis();
         this.createdAt = now;
@@ -92,17 +104,7 @@ public final class HabitRecord implements Parcelable {
         dest.writeList(checkmarks);
     }
 
-    public static final Parcelable.Creator<HabitRecord> CREATOR = new Parcelable.Creator<HabitRecord>() {
-        @Override
-        public HabitRecord createFromParcel(Parcel parcel) {
-            return new HabitRecord(parcel);
-        }
 
-        @Override
-        public HabitRecord[] newArray(int size) {
-            return new HabitRecord[size];
-        }
-    };
 
     public HabitRecord copy() {
         return new HabitRecord(userId, createdAt, name, color, target, resetFreq, resetTimestamp,
@@ -186,7 +188,8 @@ public final class HabitRecord implements Parcelable {
     }
 
     public void setScore(int score) {
-        if (score < 0) return;
+        if (score < 0)
+            return;
         this.score = score;
     }
 

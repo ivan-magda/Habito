@@ -1,6 +1,7 @@
 package com.ivanmagda.habito.barchart;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.github.mikephil.charting.data.BarEntry;
 import com.ivanmagda.habito.models.Habit;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public final class HabitoBarChartDataSource {
 
+    public static final String ILLEGAL_DATE_RANGE = "Illegal date range";
     private Habit mHabit;
     private List<BarEntry> mEntries;
     private HabitoBarChartRange.DateRange mDateRange;
@@ -65,11 +67,13 @@ public final class HabitoBarChartDataSource {
 
             int countInRange = 0;
             for (long checkmarkDate : mHabit.getRecord().getCheckmarks()) {
-                if (isMeetCompareRule(currentDate, checkmarkDate)) countInRange++;
+                if (isMeetCompareRule(currentDate, checkmarkDate))
+                    countInRange++;
             }
             mEntries.add(new BarEntry(i, countInRange));
 
-            if (countInRange > mMaxValue) mMaxValue = countInRange;
+            if (countInRange > mMaxValue)
+                mMaxValue = countInRange;
         }
     }
 
@@ -82,7 +86,7 @@ public final class HabitoBarChartDataSource {
             case YEAR:
                 return HabitoDateUtils.getStartOfCurrentYear();
             default:
-                throw new IllegalArgumentException("Illegal date range");
+                throw new IllegalArgumentException(ILLEGAL_DATE_RANGE);
         }
     }
 
@@ -93,19 +97,27 @@ public final class HabitoBarChartDataSource {
                 calendar.add(Calendar.DATE, index);
                 break;
             case MONTH:
-                calendar.add(Calendar.DAY_OF_WEEK_IN_MONTH, index);
-                Date endOfMonth = new Date(HabitoDateUtils.getEndOfCurrentMonth());
-                if (calendar.getTime().after(endOfMonth)) {
-                    return endOfMonth.getTime();
-                }
+                Long endOfMonth1 = endOfMonth(index, calendar);
+                if (endOfMonth1 != null)
+                    return endOfMonth1;
                 break;
             case YEAR:
                 calendar.add(Calendar.MONTH, index);
                 break;
             default:
-                throw new IllegalArgumentException("Illegal date range");
+                throw new IllegalArgumentException(ILLEGAL_DATE_RANGE);
         }
         return calendar.getTimeInMillis();
+    }
+
+    @Nullable
+    private Long endOfMonth(int index, Calendar calendar) {
+        calendar.add(Calendar.DAY_OF_WEEK_IN_MONTH, index);
+        Date endOfMonth = new Date(HabitoDateUtils.getEndOfCurrentMonth());
+        if (calendar.getTime().after(endOfMonth)) {
+            return endOfMonth.getTime();
+        }
+        return null;
     }
 
     private boolean isMeetCompareRule(long currentDate, long checkmarkDate) {
@@ -118,7 +130,7 @@ public final class HabitoBarChartDataSource {
             case YEAR:
                 return HabitoDateUtils.isDatesInSameMonth(currentDate, checkmarkDate);
             default:
-                throw new IllegalArgumentException("Illegal date range");
+                throw new IllegalArgumentException(ILLEGAL_DATE_RANGE);
         }
     }
 
