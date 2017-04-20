@@ -19,7 +19,6 @@ android:
     - sys-img-armeabi-v7a-android-22
   before_script:
     - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-    - android list target
     - emulator -avd test -no-audio -no-window &
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
@@ -31,3 +30,11 @@ android:
       - $HOME/.gradle/caches/
       - $HOME/.gradle/wrapper/
       - $HOME/.android/build-cache
+  after_failure:
+    - export MY_MOD="habito"
+    - export MY_LOG_DIR="$(pwd)/app/build/reports/androidTests/connected/"
+    - pwd && cd "${MY_LOG_DIR:-.}" && pwd && ls -al
+    - sudo apt-get install -qq lynx && lynx --dump index.html > myIndex.log
+    - lynx --dump com.android.builder.testing.ConnectedDevice.html > myConnectedDevice.log
+    - lynx --dump com.android.builder.testing.html > myTesting.log
+    - for file in *.log; do echo "$file"; echo "====================="; cat "$file"; done || true
