@@ -90,6 +90,7 @@ public final class HabitList {
                 Collections.sort(mHabits, new SortByDate());
                 Collections.reverse(mHabits);
                 break;
+			default: break;
         }
     }
 
