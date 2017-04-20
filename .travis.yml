@@ -1,9 +1,12 @@
 language: android
+sudo: required
 jdk: oraclejdk8
 env:
   global:
     - ADB_INSTALL_TIMEOUT=20 
 android:
+  services:
+    - docker
   components:
     - tools
     - platform-tools
