@@ -37,3 +37,4 @@ RUN apt-get clean
 # Go to workspace
 RUN mkdir -p /opt/workspace
 WORKDIR /opt/workspace
+ADD . /opt/workspace
