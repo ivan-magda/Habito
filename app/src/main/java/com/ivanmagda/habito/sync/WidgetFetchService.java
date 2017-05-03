@@ -10,11 +10,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ivanmagda.habito.models.Habit;
-import com.ivanmagda.habito.models.HabitRecord;
 import com.ivanmagda.habito.widget.DetailWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.ivanmagda.habito.utils.HabitListUtils.CreateHabitListFromDataSnapshot;
 
 public class WidgetFetchService extends Service {
 
@@ -58,11 +59,13 @@ public class WidgetFetchService extends Service {
     }
 
     private void processOnDataChange(DataSnapshot dataSnapshot) {
-        habitList = new ArrayList<>((int) dataSnapshot.getChildrenCount());
+        /*habitList = new ArrayList<>((int) dataSnapshot.getChildrenCount());
         for (DataSnapshot data : dataSnapshot.getChildren()) {
             HabitRecord parsedRecord = data.getValue(HabitRecord.class);
             habitList.add(new Habit(data.getKey(), parsedRecord));
-        }
+        }*/
+
+        habitList=CreateHabitListFromDataSnapshot(dataSnapshot);
         populateWidget();
     }
 
