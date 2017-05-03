@@ -45,6 +45,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.ivanmagda.habito.utils.HabitListUtils.CreateHabitListFromDataSnapshot;
+
 public class HabitListActivity extends AppCompatActivity implements HabitsAdapter.HabitAdapterOnClickListener {
 
     private static final String TAG = "HabitListActivity";
@@ -260,11 +262,8 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     }
 
     private void processOnDataChange(DataSnapshot dataSnapshot) {
-        List<Habit> habits = new ArrayList<>((int) dataSnapshot.getChildrenCount());
-        for (DataSnapshot data : dataSnapshot.getChildren()) {
-            HabitRecord parsedRecord = data.getValue(HabitRecord.class);
-            habits.add(new Habit(data.getKey(), parsedRecord));
-        }
+
+        List<Habit> habits = CreateHabitListFromDataSnapshot(dataSnapshot);
 
         mHabitsAdapter.setHabits(habits);
         emptyView.setVisibility(mHabitsAdapter.getHabits().isEmpty() ? View.VISIBLE : View.INVISIBLE);
