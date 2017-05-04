@@ -1,0 +1,45 @@
+language: android
+jdk: oraclejdk8
+sudo: false
+env:
+  global:
+    - ADB_INSTALL_TIMEOUT=10
+android:
+  services:
+    - docker
+  components:
+    - tools
+    - build-tools-25.0.2
+    - platform-tools
+    - extra-android-m2repository
+    - extra-google-android-support
+    - extra-google-m2repository
+    - extra-android-support
+    - android-25
+    - android-22
+    - sys-img-armeabi-v7a-android-22
+  before_script:
+    - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+    - emulator -avd test -no-audio -no-window &
+    - android-wait-for-emulator
+    - adb shell input keyevent 82 &  
+  script:
+    - android list target
+    - ./gradlew connectedAndroidTest
+  before_cache:
+    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  cache:
+    directories:
+      - $HOME/.gradle/caches/
+      - $HOME/.gradle/wrapper/
+      - $HOME/.android/build-cache
+  after_failure:
+    - export MY_MOD="habito"
+    - export MY_LOG_DIR="$(pwd)/app/build/reports/androidTests/connected/"
+    - pwd && cd "${MY_LOG_DIR:-.}" && pwd && ls -al
+    - sudo apt-get install -qq lynx && lynx --dump index.html > myIndex.log
+    - lynx --dump com.android.builder.testing.ConnectedDevice.html > myConnectedDevice.log
+    - lynx --dump com.android.builder.testing.html > myTesting.log
+    - for file in *.log; do echo "$file"; echo "====================="; cat "$file"; done || true
+    

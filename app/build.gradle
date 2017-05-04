@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin:'jacoco'
 
 android {
     compileSdkVersion 25
@@ -12,10 +13,20 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug{
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    adbOptions {
+        timeOutInMs 10 * 60 * 1000
+        installOptions "-d", "-t"
     }
 }
 
