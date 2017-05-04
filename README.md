@@ -1,6 +1,7 @@
 # Habito
 
 ![License](https://img.shields.io/npm/l/express.svg)
+![Build status](https://travis-ci.org/BNDKPNTR/Habito.svg?branch=master)
 
 ## Description
 Habito is a simple Android app that helps you create and maintain good habits.

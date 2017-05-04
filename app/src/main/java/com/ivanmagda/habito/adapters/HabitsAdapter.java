@@ -21,6 +21,9 @@ import butterknife.ButterKnife;
 
 public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.HabitAdapterViewHolder> {
 
+    private HabitList mHabitList;
+    private HabitAdapterOnClickListener mClickListener;
+    
     /**
      * The interface that receives onClick messages.
      */
@@ -31,9 +34,6 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
          */
         void onClick(Habit selectedHabit, int position);
     }
-
-    private HabitList mHabitList;
-    private HabitAdapterOnClickListener mClickListener;
 
     /**
      * Creates a HabitsAdapter.
