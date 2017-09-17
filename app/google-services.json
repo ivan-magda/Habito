@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "931256015025-luuauno40b3236pufm9jon704d7h8pep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ivanmagda.habito",
+            "certificate_hash": "cf82e684ed80fdc1daf66a62132f600997c72d05"
+          }
+        },
+        {
           "client_id": "931256015025-ih0s13ph9urjacpdkh0uqbape4865o1r.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -22,6 +30,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyAujPGYqwWyYTfTPwzlfSEwGB0hGFOaBX4"
+        },
+        {
+          "current_key": "AIzaSyC0cFhpLIDCEEcH6QSAmKw6Qtpscz7DQLc"
         }
       ],
       "services": {
