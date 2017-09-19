@@ -1,5 +1,6 @@
 # Habito
 
+[![codebeat badge](https://codebeat.co/badges/c29ec7ab-0403-4055-ace7-f16071e2cf6b)](https://codebeat.co/projects/github-com-vanyaland-habito-master)
 ![License](https://img.shields.io/npm/l/express.svg)
 
 ## Description
