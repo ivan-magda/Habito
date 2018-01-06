@@ -206,7 +206,7 @@ public class DetailHabitActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<HabitoBarChartDataSource> loader,
                                HabitoBarChartDataSource dataSource) {
-        HabitoBarChartViewModel viewModel = new HabitoBarChartViewModel(mHabit, mBarChartRange);
+        HabitoBarChartViewModel viewModel = new HabitoBarChartViewModel(mBarChartRange);
         mBarChartConfigurator.setup(dataSource, viewModel);
         barChart.animateY(1000);
     }

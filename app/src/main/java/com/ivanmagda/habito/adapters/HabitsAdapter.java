@@ -124,7 +124,7 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-            mViewModel = new HabitListItemViewModel(itemView.getContext());
+            mViewModel = new HabitListItemViewModel(itemView.getContext(), null);
         }
 
         @Override
@@ -150,7 +150,5 @@ public final class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.Habi
             resetPeriodTextView.setText(mViewModel.getResetFreq());
             countTextView.setText(mViewModel.getScore());
         }
-
     }
-
 }
