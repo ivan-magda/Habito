@@ -1,17 +1,17 @@
 package com.ivanmagda.habito.sync;
 
 import android.app.IntentService;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.WakefulBroadcastReceiver;
-import android.support.v7.app.NotificationCompat;
 
 import com.ivanmagda.habito.R;
 import com.ivanmagda.habito.activities.DetailHabitActivity;
 import com.ivanmagda.habito.models.Habit;
+import com.ivanmagda.habito.utils.NotificationUtils;
 import com.ivanmagda.habito.utils.ReminderUtils;
 
 
@@ -53,12 +53,12 @@ public class ReminderIntentService extends IntentService {
         resultIntent.putExtra(DetailHabitActivity.HABIT_EXTRA_KEY, habit);
         final int notificationId = (int) habit.getRecord().getCreatedAt();
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle(getString(R.string.app_name))
-                .setAutoCancel(true)
-                .setColor(habit.getRecord().getColor())
-                .setContentText(habit.getRecord().getName())
-                .setSmallIcon(R.mipmap.ic_launcher);
+        NotificationUtils notificationUtils = new NotificationUtils(this);
+        NotificationCompat.Builder builder = notificationUtils.getNotification(
+                getString(R.string.app_name),
+                habit.getRecord().getName(),
+                habit.getRecord().getColor()
+        );
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
@@ -70,9 +70,7 @@ public class ReminderIntentService extends IntentService {
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(resultPendingIntent);
 
-        NotificationManager manager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(notificationId, builder.build());
+        notificationUtils.getManager().notify(notificationId, builder.build());
     }
 
 }
