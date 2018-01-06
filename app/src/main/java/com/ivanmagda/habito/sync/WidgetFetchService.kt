@@ -76,6 +76,6 @@ class WidgetFetchService : Service() {
     }
 
     companion object {
-        var habitList: MutableList<Habit> = ArrayList()
+        var habitList: ArrayList<Habit> = ArrayList()
     }
 }
