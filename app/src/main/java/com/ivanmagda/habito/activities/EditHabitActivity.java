@@ -105,19 +105,19 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
 
         HabitRecord record = mEditingHabit.getRecord();
         nameEditText.setText(record.getName());
-        if (record.getColor() != HabitRecord.DEFAULT_COLOR) {
+        if (record.getColor() != HabitRecord.CREATOR.getDEFAULT_COLOR()) {
             nameEditText.setTextColor(record.getColor());
         }
 
         targetEditText.setText(String.valueOf(record.getTarget()));
         updateTimeText();
 
-        List<String> resetFrequencies = Arrays.asList(ResetFrequency.ALL);
+        List<String> resetFrequencies = Arrays.asList(ResetFrequency.Companion.getALL());
         ArrayAdapter<String> resetAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 resetFrequencies);
         resetFrequencySpinner.setAdapter(resetAdapter);
         resetFrequencySpinner.setPrompt(getResources().getString(R.string.spinner_prompt));
-        String selection = (mOriginalHabit == null ? ResetFrequency.NEVER
+        String selection = (mOriginalHabit == null ? ResetFrequency.Companion.getNEVER()
                 : mOriginalHabit.getRecord().getResetFreq());
         resetFrequencySpinner.setSelection(resetFrequencies.indexOf(selection));
         resetFrequencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -187,15 +187,15 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
 
     @Override
     public void onCancel() {
-        mEditingHabit.getRecord().setReminderHour(HabitRecord.REMINDER_OFF);
-        mEditingHabit.getRecord().setReminderMin(HabitRecord.REMINDER_OFF);
+        mEditingHabit.getRecord().setReminderHour(HabitRecord.CREATOR.getREMINDER_OFF());
+        mEditingHabit.getRecord().setReminderMin(HabitRecord.CREATOR.getREMINDER_OFF());
         updateTimeText();
     }
 
     private void updateTimeText() {
         if (mEditingHabit.isReminderOn()) {
             HabitRecord record = mEditingHabit.getRecord();
-            reminderTimeTextView.setText(ReminderTime.getTimeString(record.getReminderHour(),
+            reminderTimeTextView.setText(ReminderTime.Companion.getTimeString(record.getReminderHour(),
                     record.getReminderMin()));
         } else {
             reminderTimeTextView.setText(R.string.off);

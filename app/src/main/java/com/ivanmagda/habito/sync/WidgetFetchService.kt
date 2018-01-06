@@ -55,7 +55,9 @@ class WidgetFetchService : Service() {
         habitList = ArrayList(dataSnapshot.childrenCount.toInt())
         for (data in dataSnapshot.children) {
             val parsedRecord = data.getValue(HabitRecord::class.java)
-            habitList.add(Habit(data.key, parsedRecord))
+            if (parsedRecord != null) {
+                habitList.add(Habit(data.key, parsedRecord))
+            }
         }
 
         populateWidget()
