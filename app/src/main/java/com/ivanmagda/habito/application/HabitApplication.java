@@ -12,7 +12,7 @@ public class HabitApplication extends Application {
         super.onCreate();
         HabitoAnalytics.initAnalytics(this);
         HabitoAnalytics.logAppOpen();
-        FirebaseSyncUtils.setOfflineModeEnabled(true);
+        FirebaseSyncUtils.INSTANCE.setOfflineModeEnabled(true);
     }
 
 }

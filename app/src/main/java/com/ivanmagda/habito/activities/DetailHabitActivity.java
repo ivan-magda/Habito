@@ -156,7 +156,7 @@ public class DetailHabitActivity extends AppCompatActivity
     private void updateScoreIfNeeded(int oldValue) {
         if (oldValue != mHabit.getRecord().getScore()) {
             updateUI();
-            FirebaseSyncUtils.applyChangesForHabit(mHabit);
+            FirebaseSyncUtils.INSTANCE.applyChangesForHabit(mHabit);
         }
     }
 
@@ -167,7 +167,7 @@ public class DetailHabitActivity extends AppCompatActivity
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseSyncUtils.deleteHabit(mHabit);
+                        FirebaseSyncUtils.INSTANCE.deleteHabit(mHabit);
                         finish();
                     }
                 })

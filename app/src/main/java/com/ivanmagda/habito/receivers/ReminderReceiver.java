@@ -15,9 +15,9 @@ public class ReminderReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.hasExtra(ReminderUtils.HABIT_EXTRA_KEY)) {
-            Habit habit = intent.getParcelableExtra(ReminderUtils.HABIT_EXTRA_KEY);
-            Intent serviceIntent = ReminderIntentService.buildInstance(habit, context);
+        if (intent.hasExtra(ReminderUtils.INSTANCE.getHABIT_EXTRA_KEY())) {
+            Habit habit = intent.getParcelableExtra(ReminderUtils.INSTANCE.getHABIT_EXTRA_KEY());
+            Intent serviceIntent = ReminderIntentService.Companion.buildInstance(habit, context);
             context.startService(serviceIntent);
         }
     }

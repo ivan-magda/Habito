@@ -217,7 +217,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         detachDatabaseReadListener();
 
         HabitoAnalytics.logLogin(FirebaseAuth.getInstance().getCurrentUser());
-        mUserHabitsQuery = FirebaseSyncUtils.getCurrentUserHabitsQuery();
+        mUserHabitsQuery = FirebaseSyncUtils.INSTANCE.getCurrentUserHabitsQuery();
         assert mUserHabitsQuery != null;
         mUserHabitsQuery.keepSynced(true);
 

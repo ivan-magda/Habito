@@ -29,8 +29,8 @@ public class ListProvider implements RemoteViewsService.RemoteViewsFactory {
     }
 
     private void populateListItem() {
-        if (WidgetFetchService.habitList != null) {
-            mHabitList = new ArrayList<>(WidgetFetchService.habitList);
+        if (WidgetFetchService.Companion.getHabitList() != null) {
+            mHabitList = new ArrayList<>(WidgetFetchService.Companion.getHabitList());
         } else {
             mHabitList = new ArrayList<>();
         }
