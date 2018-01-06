@@ -47,7 +47,7 @@ public final class HabitoBarChartDataSource {
             case WEEK:
                 return 7;
             case MONTH:
-                return HabitoDateUtils.getNumberOfWeeksInCurrentMonth();
+                return HabitoDateUtils.INSTANCE.getNumberOfWeeksInCurrentMonth();
             case YEAR:
                 return 12;
             default:
@@ -76,25 +76,25 @@ public final class HabitoBarChartDataSource {
     private long getBaseDate() {
         switch (mDateRange) {
             case WEEK:
-                return HabitoDateUtils.getStartOfCurrentWeek();
+                return HabitoDateUtils.INSTANCE.getStartOfCurrentWeek();
             case MONTH:
-                return HabitoDateUtils.getStartOfCurrentMonth();
+                return HabitoDateUtils.INSTANCE.getStartOfCurrentMonth();
             case YEAR:
-                return HabitoDateUtils.getStartOfCurrentYear();
+                return HabitoDateUtils.INSTANCE.getStartOfCurrentYear();
             default:
                 throw new IllegalArgumentException("Illegal date range");
         }
     }
 
     private long getDateForEntryAtIndex(long baseDate, int index) {
-        Calendar calendar = HabitoDateUtils.getCalendarWithTime(baseDate);
+        Calendar calendar = HabitoDateUtils.INSTANCE.getCalendarWithTime(baseDate);
         switch (mDateRange) {
             case WEEK:
                 calendar.add(Calendar.DATE, index);
                 break;
             case MONTH:
                 calendar.add(Calendar.DAY_OF_WEEK_IN_MONTH, index);
-                Date endOfMonth = new Date(HabitoDateUtils.getEndOfCurrentMonth());
+                Date endOfMonth = new Date(HabitoDateUtils.INSTANCE.getEndOfCurrentMonth());
                 if (calendar.getTime().after(endOfMonth)) {
                     return endOfMonth.getTime();
                 }
@@ -111,12 +111,12 @@ public final class HabitoBarChartDataSource {
     private boolean isMeetCompareRule(long currentDate, long checkmarkDate) {
         switch (mDateRange) {
             case WEEK:
-                return HabitoDateUtils.isSameDay(currentDate, checkmarkDate);
+                return HabitoDateUtils.INSTANCE.isSameDay(currentDate, checkmarkDate);
             case MONTH:
-                return HabitoDateUtils.isDatesInSameMonth(currentDate, checkmarkDate)
-                        && HabitoDateUtils.isDatesInSameWeek(currentDate, checkmarkDate);
+                return HabitoDateUtils.INSTANCE.isDatesInSameMonth(currentDate, checkmarkDate)
+                        && HabitoDateUtils.INSTANCE.isDatesInSameWeek(currentDate, checkmarkDate);
             case YEAR:
-                return HabitoDateUtils.isDatesInSameMonth(currentDate, checkmarkDate);
+                return HabitoDateUtils.INSTANCE.isDatesInSameMonth(currentDate, checkmarkDate);
             default:
                 throw new IllegalArgumentException("Illegal date range");
         }

@@ -1,13 +1,12 @@
 package com.ivanmagda.habito.barchart.formatters;
 
 import com.github.mikephil.charting.components.AxisBase;
+import com.ivanmagda.habito.utils.HabitoDateUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import static com.ivanmagda.habito.utils.HabitoDateUtils.getCurrentCalendar;
 
 public final class YearAxisValueFormatter extends HabitoBaseIAxisValueFormatter {
 
@@ -21,9 +20,9 @@ public final class YearAxisValueFormatter extends HabitoBaseIAxisValueFormatter 
 
     @Override
     public long getDateForValue(float value) {
-        Calendar calendar = getCurrentCalendar();
+        Calendar calendar = HabitoDateUtils.INSTANCE.getCurrentCalendar();
         calendar.set(Calendar.MONTH, (int) value);
+
         return calendar.getTimeInMillis();
     }
-
 }

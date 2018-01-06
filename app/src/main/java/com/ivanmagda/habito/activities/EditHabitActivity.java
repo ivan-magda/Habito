@@ -226,8 +226,8 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
         data.putExtra(EDIT_HABIT_RESULT, mEditingHabit);
         setResult(RESULT_OK, data);
 
-        ReminderUtils.processOn(mEditingHabit, this);
-        HabitoScoreUtils.resetScore(mEditingHabit);
+        ReminderUtils.INSTANCE.processHabit(mEditingHabit, this);
+        HabitoScoreUtils.INSTANCE.resetScore(mEditingHabit);
         FirebaseSyncUtils.applyChangesForHabit(mEditingHabit);
 
         finish();

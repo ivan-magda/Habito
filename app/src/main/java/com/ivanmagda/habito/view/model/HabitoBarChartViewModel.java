@@ -41,15 +41,15 @@ public class HabitoBarChartViewModel {
         switch (mDateRange) {
             case WEEK:
                 String week = resources.getString(R.string.week).toLowerCase();
-                return HabitoStringUtils.capitalized(
+                return HabitoStringUtils.Companion.capitalized(
                         resources.getString(R.string.bar_chart_set_name, week));
             case MONTH:
                 String month = resources.getString(R.string.month).toLowerCase();
-                return HabitoStringUtils.capitalized(
+                return HabitoStringUtils.Companion.capitalized(
                         resources.getString(R.string.bar_chart_set_name, month));
             case YEAR:
                 String year = resources.getString(R.string.year).toLowerCase();
-                return HabitoStringUtils.capitalized(
+                return HabitoStringUtils.Companion.capitalized(
                         resources.getString(R.string.bar_chart_set_name, year));
             default:
                 throw new IllegalArgumentException("Receive illegal date range");

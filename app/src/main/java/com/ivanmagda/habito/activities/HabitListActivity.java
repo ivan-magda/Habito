@@ -87,7 +87,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         ButterKnife.bind(this);
         initFirebase();
 
-        HabitList.SortOrder sortOrder = SharedPreferencesUtils.getSortOrder(this);
+        HabitList.SortOrder sortOrder = SharedPreferencesUtils.INSTANCE.getSortOrder(this);
         HabitList habitList = new HabitList(new ArrayList<Habit>(), sortOrder);
         mHabitsAdapter = new HabitsAdapter(habitList);
         mHabitsAdapter.setClickListener(this);
@@ -195,7 +195,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     }
 
     private void sortBy(HabitList.SortOrder sortOrder) {
-        SharedPreferencesUtils.setSortOrder(this, sortOrder);
+        SharedPreferencesUtils.INSTANCE.setSortOrder(this, sortOrder);
         mHabitsAdapter.setSortOrder(sortOrder);
     }
 
@@ -225,7 +225,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     }
 
     private void onSignedOutCleanup() {
-        ReminderUtils.cancelAll(mHabitsAdapter.getHabits(), this);
+        ReminderUtils.INSTANCE.cancelAll(mHabitsAdapter.getHabits(), this);
         mHabitsAdapter.clear();
         detachDatabaseReadListener();
     }
@@ -269,8 +269,8 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
         mHabitsAdapter.setHabits(habits);
         emptyView.setVisibility(mHabitsAdapter.getHabits().isEmpty() ? View.VISIBLE : View.INVISIBLE);
 
-        HabitoScoreUtils.processAll(habits);
-        ReminderUtils.processAll(habits, this);
+        HabitoScoreUtils.INSTANCE.processAll(habits);
+        ReminderUtils.INSTANCE.processAll(habits, this);
     }
 
     private void showDetail(Habit habit) {

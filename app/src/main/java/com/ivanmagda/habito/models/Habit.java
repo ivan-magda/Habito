@@ -73,11 +73,11 @@ public final class Habit implements Parcelable, Cloneable {
     }
 
     public synchronized void increaseScore() {
-        HabitoScoreUtils.increaseScore(this);
+        HabitoScoreUtils.INSTANCE.increaseScore(this);
     }
 
     public synchronized void decreaseScore() {
-        HabitoScoreUtils.decreaseScore(this);
+        HabitoScoreUtils.INSTANCE.decreaseScore(this);
     }
 
     @Override

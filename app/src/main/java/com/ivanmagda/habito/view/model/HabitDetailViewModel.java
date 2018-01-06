@@ -38,14 +38,14 @@ public final class HabitDetailViewModel {
     public String getDateRangeString() {
         switch (mDateRange) {
             case WEEK:
-                return getFormattedWeek(HabitoDateUtils.getStartOfCurrentWeek(),
-                        HabitoDateUtils.getEndOfCurrentWeek());
+                return getFormattedWeek(HabitoDateUtils.INSTANCE.getStartOfCurrentWeek(),
+                        HabitoDateUtils.INSTANCE.getEndOfCurrentWeek());
             case MONTH:
-                return getFormattedMonth(HabitoDateUtils.getStartOfCurrentMonth(),
-                        HabitoDateUtils.getEndOfCurrentMonth());
+                return getFormattedMonth(HabitoDateUtils.INSTANCE.getStartOfCurrentMonth(),
+                        HabitoDateUtils.INSTANCE.getEndOfCurrentMonth());
             case YEAR:
-                return getFormattedYear(HabitoDateUtils.getStartOfCurrentYear(),
-                        HabitoDateUtils.getEndOfCurrentYear());
+                return getFormattedYear(HabitoDateUtils.INSTANCE.getStartOfCurrentYear(),
+                        HabitoDateUtils.INSTANCE.getEndOfCurrentYear());
             default:
                 throw new IllegalArgumentException("Receive illegal date range");
         }
