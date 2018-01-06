@@ -149,7 +149,7 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
         TimePickerFragment timePickerFragment;
         if (mEditingHabit.isReminderOn()) {
             HabitRecord record = mEditingHabit.getRecord();
-            timePickerFragment = TimePickerFragment.newInstance(record.getReminderHour(),
+            timePickerFragment = TimePickerFragment.Companion.newInstance(record.getReminderHour(),
                     record.getReminderMin());
         } else {
             timePickerFragment = new TimePickerFragment();
