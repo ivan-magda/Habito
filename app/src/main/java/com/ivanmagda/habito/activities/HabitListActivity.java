@@ -216,7 +216,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     private void onSignedInInitialize() {
         detachDatabaseReadListener();
 
-        HabitoAnalytics.logLogin(FirebaseAuth.getInstance().getCurrentUser());
+        HabitoAnalytics.INSTANCE.logLogin(FirebaseAuth.getInstance().getCurrentUser());
         mUserHabitsQuery = FirebaseSyncUtils.INSTANCE.getCurrentUserHabitsQuery();
         assert mUserHabitsQuery != null;
         mUserHabitsQuery.keepSynced(true);
@@ -274,7 +274,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     }
 
     private void showDetail(Habit habit) {
-        HabitoAnalytics.logViewHabitListItem(habit);
+        HabitoAnalytics.INSTANCE.logViewHabitListItem(habit);
         Intent intent = new Intent(this, DetailHabitActivity.class);
         intent.putExtra(DetailHabitActivity.HABIT_EXTRA_KEY, habit);
         startActivity(intent);

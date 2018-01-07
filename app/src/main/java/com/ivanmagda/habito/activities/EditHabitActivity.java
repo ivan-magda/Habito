@@ -216,7 +216,7 @@ public class EditHabitActivity extends AppCompatActivity implements TimePickerFr
     }
 
     private void createNew() {
-        HabitoAnalytics.logCreateHabitWithName(mEditingHabit.getRecord().getName());
+        HabitoAnalytics.INSTANCE.logCreateHabitWithName(mEditingHabit.getRecord().getName());
         FirebaseSyncUtils.INSTANCE.createNewHabitRecord(mEditingHabit.getRecord());
         onBackPressed();
     }
