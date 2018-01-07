@@ -176,7 +176,7 @@ public class DetailHabitActivity extends AppCompatActivity
     }
 
     private void configureDateSpinner() {
-        List<String> dateRanges = HabitoBarChartRange.allStringValues(this);
+        List<String> dateRanges = HabitoBarChartRange.INSTANCE.allStringValues(this);
         ArrayAdapter<String> resetAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 dateRanges);
         dateRangeSpinner.setAdapter(resetAdapter);
@@ -188,7 +188,7 @@ public class DetailHabitActivity extends AppCompatActivity
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selected = parent.getItemAtPosition(position).toString();
         if (!selected.equals(mBarChartRange.stringValue(this))) {
-            mBarChartRange = HabitoBarChartRange.DateRange.fromString(selected, this);
+            mBarChartRange = HabitoBarChartRange.DateRange.Companion.fromString(selected, this);
             mViewModel.setDateRange(mBarChartRange);
             updateUI();
         }
