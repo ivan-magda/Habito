@@ -45,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HabitListActivity extends AppCompatActivity implements HabitsAdapter.HabitAdapterOnClickListener {
+public class HabitListActivity extends AppCompatActivity implements HabitsAdapter.OnClickListener {
 
     private static final String TAG = "HabitListActivity";
 
@@ -89,7 +89,7 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
 
         HabitList.SortOrder sortOrder = SharedPreferencesUtils.INSTANCE.getSortOrder(this);
         HabitList habitList = new HabitList(new ArrayList<Habit>(), sortOrder);
-        mHabitsAdapter = new HabitsAdapter(habitList);
+        mHabitsAdapter = new HabitsAdapter(habitList, null);
         mHabitsAdapter.setClickListener(this);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, NUM_OF_COLUMNS));
@@ -162,8 +162,8 @@ public class HabitListActivity extends AppCompatActivity implements HabitsAdapte
     }
 
     @Override
-    public void onClick(Habit selectedHabit, int position) {
-        showDetail(selectedHabit);
+    public void onClick(Habit habit, int position) {
+        showDetail(habit);
     }
 
     @OnClick(R.id.fab)
