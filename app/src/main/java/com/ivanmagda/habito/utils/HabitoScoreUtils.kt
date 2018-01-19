@@ -1,7 +1,7 @@
 package com.ivanmagda.habito.utils
 
-import com.ivanmagda.habito.models.Habit
-import com.ivanmagda.habito.models.ResetFrequency
+import com.ivanmagda.habito.model.Habit
+import com.ivanmagda.habito.model.ResetFrequency
 import com.ivanmagda.habito.sync.FirebaseSyncUtils
 
 object HabitoScoreUtils {

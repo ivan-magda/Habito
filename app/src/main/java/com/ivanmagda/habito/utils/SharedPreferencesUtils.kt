@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 import com.ivanmagda.habito.R
-import com.ivanmagda.habito.models.HabitList
+import com.ivanmagda.habito.model.HabitList
 
 object SharedPreferencesUtils {
 

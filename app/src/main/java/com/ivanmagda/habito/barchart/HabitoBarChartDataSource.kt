@@ -1,7 +1,7 @@
 package com.ivanmagda.habito.barchart
 
 import com.github.mikephil.charting.data.BarEntry
-import com.ivanmagda.habito.models.Habit
+import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.utils.HabitoDateUtils
 import java.util.*
 

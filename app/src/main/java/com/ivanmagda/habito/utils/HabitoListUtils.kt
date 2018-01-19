@@ -1,6 +1,6 @@
 package com.ivanmagda.habito.utils
 
-import com.ivanmagda.habito.models.ResetFrequency
+import com.ivanmagda.habito.model.ResetFrequency
 
 class HabitoListUtils(private val dates: List<Long> = ArrayList()) {
     fun filteredBy(type: ResetFrequency.Type): List<Long> {

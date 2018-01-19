@@ -4,8 +4,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
-import com.ivanmagda.habito.models.Habit
-import com.ivanmagda.habito.models.HabitRecord
+import com.ivanmagda.habito.model.Habit
+import com.ivanmagda.habito.model.HabitRecord
 
 object FirebaseSyncUtils {
 

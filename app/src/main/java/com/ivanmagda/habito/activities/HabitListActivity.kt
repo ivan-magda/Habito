@@ -22,9 +22,9 @@ import com.google.firebase.database.ValueEventListener
 import com.ivanmagda.habito.R
 import com.ivanmagda.habito.adapters.HabitsAdapter
 import com.ivanmagda.habito.analytics.HabitoAnalytics
-import com.ivanmagda.habito.models.Habit
-import com.ivanmagda.habito.models.HabitList
-import com.ivanmagda.habito.models.HabitRecord
+import com.ivanmagda.habito.model.Habit
+import com.ivanmagda.habito.model.HabitList
+import com.ivanmagda.habito.model.HabitRecord
 import com.ivanmagda.habito.sync.FirebaseSyncUtils
 import com.ivanmagda.habito.utils.HabitoScoreUtils
 import com.ivanmagda.habito.utils.ReminderUtils

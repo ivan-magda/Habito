@@ -15,10 +15,10 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.ivanmagda.habito.R
 import com.ivanmagda.habito.analytics.HabitoAnalytics
-import com.ivanmagda.habito.models.Habit
-import com.ivanmagda.habito.models.HabitRecord
-import com.ivanmagda.habito.models.ReminderTime
-import com.ivanmagda.habito.models.ResetFrequency
+import com.ivanmagda.habito.model.Habit
+import com.ivanmagda.habito.model.HabitRecord
+import com.ivanmagda.habito.model.ReminderTime
+import com.ivanmagda.habito.model.ResetFrequency
 import com.ivanmagda.habito.pickers.TimePickerFragment
 import com.ivanmagda.habito.sync.FirebaseSyncUtils
 import com.ivanmagda.habito.utils.HabitoScoreUtils

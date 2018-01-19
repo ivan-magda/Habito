@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ivanmagda.habito.R
-import com.ivanmagda.habito.models.Habit
-import com.ivanmagda.habito.models.HabitList
+import com.ivanmagda.habito.model.Habit
+import com.ivanmagda.habito.model.HabitList
 import com.ivanmagda.habito.view.model.HabitListItemViewModel
 import kotlinx.android.synthetic.main.habit_list_item.view.*
 

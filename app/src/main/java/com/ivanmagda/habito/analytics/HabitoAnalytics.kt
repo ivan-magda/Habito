@@ -5,7 +5,7 @@ import android.os.Bundle
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseUser
-import com.ivanmagda.habito.models.Habit
+import com.ivanmagda.habito.model.Habit
 
 object HabitoAnalytics {
 

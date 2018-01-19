@@ -3,7 +3,7 @@ package com.ivanmagda.habito.barchart
 import android.content.Context
 import android.support.v4.content.AsyncTaskLoader
 
-import com.ivanmagda.habito.models.Habit
+import com.ivanmagda.habito.model.Habit
 
 /**
  * Prefetch data for the bar chart and returns the data source object.

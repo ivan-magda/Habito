@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.models
+package com.ivanmagda.habito.model
 
 import java.text.SimpleDateFormat
 import java.util.*

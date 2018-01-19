@@ -1,7 +1,7 @@
 package com.ivanmagda.habito.utils
 
 import android.text.format.DateUtils
-import com.ivanmagda.habito.models.ResetFrequency
+import com.ivanmagda.habito.model.ResetFrequency
 import java.util.*
 
 object HabitoDateUtils {

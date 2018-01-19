@@ -3,8 +3,8 @@ package com.ivanmagda.habito.view.model
 import android.content.Context
 import android.graphics.Color
 import com.ivanmagda.habito.R
-import com.ivanmagda.habito.models.Habit
-import com.ivanmagda.habito.models.ResetFrequency
+import com.ivanmagda.habito.model.Habit
+import com.ivanmagda.habito.model.ResetFrequency
 import java.text.SimpleDateFormat
 import java.util.*
 

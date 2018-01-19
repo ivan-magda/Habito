@@ -17,7 +17,7 @@ import com.ivanmagda.habito.barchart.HabitoBarChartConfigurator
 import com.ivanmagda.habito.barchart.HabitoBarChartDataLoader
 import com.ivanmagda.habito.barchart.HabitoBarChartDataSource
 import com.ivanmagda.habito.barchart.HabitoBarChartRange
-import com.ivanmagda.habito.models.Habit
+import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.sync.FirebaseSyncUtils
 import com.ivanmagda.habito.view.model.HabitDetailViewModel
 import com.ivanmagda.habito.view.model.HabitoBarChartViewModel

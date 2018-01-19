@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.models
+package com.ivanmagda.habito.model
 
 class ResetFrequency(type: Type = Type.NEVER) {
 

@@ -7,7 +7,7 @@ import android.content.Intent
 import android.support.v4.app.TaskStackBuilder
 import android.support.v4.content.WakefulBroadcastReceiver
 import com.ivanmagda.habito.activities.DetailHabitActivity
-import com.ivanmagda.habito.models.Habit
+import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.utils.NotificationUtils
 import com.ivanmagda.habito.utils.ReminderUtils
 

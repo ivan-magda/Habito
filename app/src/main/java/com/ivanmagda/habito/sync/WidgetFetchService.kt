@@ -8,8 +8,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
-import com.ivanmagda.habito.models.Habit
-import com.ivanmagda.habito.models.HabitRecord
+import com.ivanmagda.habito.model.Habit
+import com.ivanmagda.habito.model.HabitRecord
 import com.ivanmagda.habito.widget.DetailWidgetProvider
 import java.util.*
 

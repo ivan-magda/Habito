@@ -4,7 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import com.ivanmagda.habito.models.Habit
+import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.receivers.ReminderReceiver
 import java.util.*
 
