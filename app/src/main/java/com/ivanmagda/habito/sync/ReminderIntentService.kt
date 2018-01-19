@@ -8,8 +8,8 @@ import android.support.v4.app.TaskStackBuilder
 import android.support.v4.content.WakefulBroadcastReceiver
 import com.ivanmagda.habito.activity.DetailHabitActivity
 import com.ivanmagda.habito.model.Habit
-import com.ivanmagda.habito.utils.NotificationUtils
-import com.ivanmagda.habito.utils.ReminderUtils
+import com.ivanmagda.habito.util.NotificationUtils
+import com.ivanmagda.habito.util.ReminderUtils
 
 /**
  * An [IntentService] subclass for handling asynchronous task requests in

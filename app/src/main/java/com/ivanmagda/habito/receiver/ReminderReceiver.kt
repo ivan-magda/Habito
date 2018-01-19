@@ -6,7 +6,7 @@ import android.content.Intent
 
 import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.sync.ReminderIntentService
-import com.ivanmagda.habito.utils.ReminderUtils
+import com.ivanmagda.habito.util.ReminderUtils
 
 class ReminderReceiver : BroadcastReceiver() {
 

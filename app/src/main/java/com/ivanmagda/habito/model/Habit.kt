@@ -3,7 +3,7 @@ package com.ivanmagda.habito.model
 import android.os.Parcel
 import android.os.Parcelable
 
-import com.ivanmagda.habito.utils.HabitoScoreUtils
+import com.ivanmagda.habito.util.HabitoScoreUtils
 
 class Habit(var id: String? = null, var record: HabitRecord = HabitRecord()) : Parcelable, Cloneable {
 

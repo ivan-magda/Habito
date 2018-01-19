@@ -2,7 +2,7 @@ package com.ivanmagda.habito.barchart
 
 import com.github.mikephil.charting.data.BarEntry
 import com.ivanmagda.habito.model.Habit
-import com.ivanmagda.habito.utils.HabitoDateUtils
+import com.ivanmagda.habito.util.HabitoDateUtils
 import java.util.*
 
 class HabitoBarChartDataSource(private val habit: Habit,

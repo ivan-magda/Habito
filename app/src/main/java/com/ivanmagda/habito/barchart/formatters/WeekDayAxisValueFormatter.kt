@@ -1,7 +1,7 @@
 package com.ivanmagda.habito.barchart.formatters
 
 import com.github.mikephil.charting.components.AxisBase
-import com.ivanmagda.habito.utils.HabitoDateUtils
+import com.ivanmagda.habito.util.HabitoDateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 

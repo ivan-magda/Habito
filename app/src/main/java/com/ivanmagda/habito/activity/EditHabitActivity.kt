@@ -21,8 +21,8 @@ import com.ivanmagda.habito.model.ReminderTime
 import com.ivanmagda.habito.model.ResetFrequency
 import com.ivanmagda.habito.picker.TimePickerFragment
 import com.ivanmagda.habito.sync.FirebaseSyncUtils
-import com.ivanmagda.habito.utils.HabitoScoreUtils
-import com.ivanmagda.habito.utils.ReminderUtils
+import com.ivanmagda.habito.util.HabitoScoreUtils
+import com.ivanmagda.habito.util.ReminderUtils
 import kotlinx.android.synthetic.main.activity_edit_habit.*
 import petrov.kristiyan.colorpicker.ColorPicker
 import java.util.*

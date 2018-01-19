@@ -1,7 +1,7 @@
 package com.ivanmagda.habito.view.model
 
 import com.ivanmagda.habito.barchart.HabitoBarChartRange
-import com.ivanmagda.habito.utils.HabitoDateUtils
+import com.ivanmagda.habito.util.HabitoDateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 

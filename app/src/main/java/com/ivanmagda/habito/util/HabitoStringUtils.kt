@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.utils
+package com.ivanmagda.habito.util
 
 class HabitoStringUtils {
     companion object {

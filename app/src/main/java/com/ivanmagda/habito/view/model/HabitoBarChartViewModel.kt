@@ -7,7 +7,7 @@ import com.ivanmagda.habito.barchart.formatters.HabitoBaseIAxisValueFormatter
 import com.ivanmagda.habito.barchart.formatters.MonthAxisValueFormatter
 import com.ivanmagda.habito.barchart.formatters.WeekDayAxisValueFormatter
 import com.ivanmagda.habito.barchart.formatters.YearAxisValueFormatter
-import com.ivanmagda.habito.utils.HabitoStringUtils
+import com.ivanmagda.habito.util.HabitoStringUtils
 
 class HabitoBarChartViewModel(private val dateRange: HabitoBarChartRange.DateRange) {
 

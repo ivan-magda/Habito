@@ -26,9 +26,9 @@ import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.model.HabitList
 import com.ivanmagda.habito.model.HabitRecord
 import com.ivanmagda.habito.sync.FirebaseSyncUtils
-import com.ivanmagda.habito.utils.HabitoScoreUtils
-import com.ivanmagda.habito.utils.ReminderUtils
-import com.ivanmagda.habito.utils.SharedPreferencesUtils
+import com.ivanmagda.habito.util.HabitoScoreUtils
+import com.ivanmagda.habito.util.ReminderUtils
+import com.ivanmagda.habito.util.SharedPreferencesUtils
 import com.ivanmagda.habito.view.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_habit_list.*
 import java.util.*

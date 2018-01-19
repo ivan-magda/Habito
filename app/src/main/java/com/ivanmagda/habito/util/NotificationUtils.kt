@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  */
 
-package com.ivanmagda.habito.utils
+package com.ivanmagda.habito.util
 
 import android.app.Notification
 import android.app.NotificationChannel
