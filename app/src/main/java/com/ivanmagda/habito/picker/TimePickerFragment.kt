@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.pickers
+package com.ivanmagda.habito.picker
 
 import android.app.Dialog
 import android.app.TimePickerDialog

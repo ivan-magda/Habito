@@ -19,7 +19,7 @@ import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.model.HabitRecord
 import com.ivanmagda.habito.model.ReminderTime
 import com.ivanmagda.habito.model.ResetFrequency
-import com.ivanmagda.habito.pickers.TimePickerFragment
+import com.ivanmagda.habito.picker.TimePickerFragment
 import com.ivanmagda.habito.sync.FirebaseSyncUtils
 import com.ivanmagda.habito.utils.HabitoScoreUtils
 import com.ivanmagda.habito.utils.ReminderUtils
