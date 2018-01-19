@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.receivers
+package com.ivanmagda.habito.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context

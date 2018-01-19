@@ -43,7 +43,7 @@
         </activity>
 
         <receiver
-            android:name=".receivers.ReminderReceiver"
+            android:name=".receiver.ReminderReceiver"
             android:enabled="true"
             android:exported="true" />
 
