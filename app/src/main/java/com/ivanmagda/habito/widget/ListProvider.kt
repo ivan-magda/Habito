@@ -5,7 +5,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.ivanmagda.habito.R
-import com.ivanmagda.habito.activities.DetailHabitActivity
+import com.ivanmagda.habito.activity.DetailHabitActivity
 import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.sync.WidgetFetchService
 import com.ivanmagda.habito.view.model.HabitListItemViewModel

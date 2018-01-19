@@ -4,7 +4,7 @@
     android:id="@+id/activity_detail_habit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ivanmagda.habito.activities.DetailHabitActivity">
+    tools:context="com.ivanmagda.habito.activity.DetailHabitActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

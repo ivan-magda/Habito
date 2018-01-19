@@ -1,4 +1,4 @@
-package com.ivanmagda.habito.activities
+package com.ivanmagda.habito.activity
 
 import android.app.Activity
 import android.content.Intent

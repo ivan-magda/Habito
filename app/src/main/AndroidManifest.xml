@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:replace="supportsRtl">
         <activity
-            android:name=".activities.HabitListActivity"
+            android:name=".activity.HabitListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,21 +25,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.EditHabitActivity"
-            android:parentActivityName=".activities.HabitListActivity">
+            android:name=".activity.EditHabitActivity"
+            android:parentActivityName=".activity.HabitListActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.HabitListActivity" />
+                android:value=".activity.HabitListActivity" />
         </activity>
         <activity
-            android:name=".activities.DetailHabitActivity"
+            android:name=".activity.DetailHabitActivity"
             android:label="@string/activity_detail_label"
-            android:parentActivityName=".activities.HabitListActivity">
+            android:parentActivityName=".activity.HabitListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.HabitListActivity" />
+                android:value=".activity.HabitListActivity" />
         </activity>
 
         <receiver

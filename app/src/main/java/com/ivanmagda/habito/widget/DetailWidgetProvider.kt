@@ -13,7 +13,7 @@ import android.support.v4.app.TaskStackBuilder
 import android.widget.RemoteViews
 
 import com.ivanmagda.habito.R
-import com.ivanmagda.habito.activities.DetailHabitActivity
+import com.ivanmagda.habito.activity.DetailHabitActivity
 import com.ivanmagda.habito.sync.WidgetFetchService
 
 /**
