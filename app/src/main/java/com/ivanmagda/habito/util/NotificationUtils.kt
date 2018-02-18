@@ -33,6 +33,7 @@ import android.content.ContextWrapper
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
 
 import com.ivanmagda.habito.R
 
@@ -67,6 +68,10 @@ class NotificationUtils(context: Context) : ContextWrapper(context) {
         manager.createNotificationChannel(channel)
     }
 
+    fun postTestNotification() {
+        val builder = getNotification("Test title", "Content goes here",
+                ContextCompat.getColor(this, R.color.colorPrimary))
+        manager.notify(RandomUtils.rand(), builder.build())
     }
 
     companion object {
