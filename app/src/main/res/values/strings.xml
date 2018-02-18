@@ -30,6 +30,8 @@
     <string name="auth_success_msg">You\'re now signed in. Hi there!</string>
     <string name="auth_canceled_msg">Sign in canceled</string>
     <string name="sign_out_message">Are you sure you want to sign out?</string>
+    <string name="no_internet_connection">There is no Internet connection.</string>
+    <string name="unknown_error">An unknown error has occurred.</string>
 
     <!--Edit habit-->
     <string name="tv_edit_name_label">Name</string>
