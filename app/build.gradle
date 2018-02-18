@@ -49,7 +49,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation 'com.google.firebase:firebase-auth:11.8.0'
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
-    implementation 'com.firebaseui:firebase-ui-auth:1.2.0'
+    implementation 'com.firebaseui:firebase-ui-auth:3.2.1'
     // MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     // ColorPicker
