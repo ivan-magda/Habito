@@ -1,9 +1,7 @@
 package com.ivanmagda.habito.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -14,11 +12,14 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.ErrorCodes
+import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import com.ivanmagda.habito.BuildConfig
 import com.ivanmagda.habito.R
 import com.ivanmagda.habito.adapter.HabitsAdapter
 import com.ivanmagda.habito.analytics.HabitoAnalytics
@@ -32,6 +33,7 @@ import com.ivanmagda.habito.util.SharedPreferencesUtils
 import com.ivanmagda.habito.view.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_habit_list.*
 import java.util.*
+
 
 class HabitListActivity : AppCompatActivity(), HabitsAdapter.OnClickListener {
 
@@ -75,15 +77,22 @@ class HabitListActivity : AppCompatActivity(), HabitsAdapter.OnClickListener {
         fab.setOnClickListener { createHabit() }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
-            if (resultCode == Activity.RESULT_OK) {
-                Snackbar.make(findViewById(R.id.activity_habit_list), R.string.auth_success_msg,
-                        Snackbar.LENGTH_LONG).show()
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(this, R.string.auth_canceled_msg, Toast.LENGTH_SHORT).show()
+            val response = IdpResponse.fromResultIntent(data)
+
+            Log.d(TAG, "onActivityResult")
+
+            if (resultCode == RESULT_OK) {
+                showToast(R.string.auth_success_msg)
+            } else {
+                when {
+                    response == null -> showToast(R.string.auth_canceled_msg)
+                    response.errorCode == ErrorCodes.NO_NETWORK -> showToast(R.string.no_internet_connection)
+                    response.errorCode == ErrorCodes.UNKNOWN_ERROR -> showToast(R.string.unknown_error)
+                }
                 finish()
             }
         }
@@ -139,15 +148,12 @@ class HabitListActivity : AppCompatActivity(), HabitsAdapter.OnClickListener {
                 startActivityForResult(
                         AuthUI.getInstance()
                                 .createSignInIntentBuilder()
-                                .setIsSmartLockEnabled(false)
-                                // TODO: 'setProviders((Mutable)List<AuthUI.IdpConfig!>): AuthUI.SignInIntentBuilder!' is deprecated.
-                                .setProviders(Arrays.asList<AuthUI.IdpConfig>(
-                                        // TODO: 'constructor Builder(String)' is deprecated.
-                                        // TODO: 'EMAIL_PROVIDER: String' is deprecated.
-                                        AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                        // TODO: 'GOOGLE_PROVIDER: String' is deprecated.
-                                        AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())
-                                ).build(),
+                                .setIsSmartLockEnabled(!BuildConfig.DEBUG, true)
+                                .setAvailableProviders(Arrays.asList<AuthUI.IdpConfig>(
+                                        AuthUI.IdpConfig.GoogleBuilder().build(),
+                                        AuthUI.IdpConfig.EmailBuilder().build()
+                                ))
+                                .build(),
                         RC_SIGN_IN)
             }
         }
@@ -247,6 +253,10 @@ class HabitListActivity : AppCompatActivity(), HabitsAdapter.OnClickListener {
 
     private fun hideProgressIndicator() {
         progress_bar.visibility = View.INVISIBLE
+    }
+
+    private fun showToast(stringId: Int) {
+        Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
