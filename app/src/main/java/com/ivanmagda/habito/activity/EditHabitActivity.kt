@@ -3,6 +3,7 @@ package com.ivanmagda.habito.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.Menu
@@ -149,11 +150,10 @@ class EditHabitActivity : AppCompatActivity(), TimePickerFragment.OnTimeSetListe
         timePickerFragment.show(supportFragmentManager, "TimePicker")
     }
 
-    // TODO: 'getColor(Int): Int' is deprecated.
     private fun showColorPicker() {
         val colorPicker = ColorPicker(this)
         colorPicker.setDefaultColorButton(editingHabit.record.color)
-        colorPicker.positiveButton.setTextColor(resources.getColor(R.color.colorAccent))
+        colorPicker.positiveButton.setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
         colorPicker.setRoundColorButton(true)
         colorPicker.setOnChooseColorListener(object : ColorPicker.OnChooseColorListener {
             override fun onChooseColor(position: Int, color: Int) {
