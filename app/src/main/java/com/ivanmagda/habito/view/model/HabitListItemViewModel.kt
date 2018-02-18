@@ -2,6 +2,7 @@ package com.ivanmagda.habito.view.model
 
 import android.content.Context
 import android.graphics.Color
+import android.support.v4.content.ContextCompat
 import com.ivanmagda.habito.R
 import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.model.ResetFrequency
@@ -20,8 +21,7 @@ class HabitListItemViewModel(val context: Context, var habit: Habit? = null) {
         get() {
             val color = habit?.record?.color
             return if (color == Color.WHITE) {
-                // TODO: 'getColor(Int): Int' is deprecated.
-                context.resources.getColor(R.color.primary_text)
+                ContextCompat.getColor(context, R.color.primary_text)
             } else {
                 Color.WHITE
             }
