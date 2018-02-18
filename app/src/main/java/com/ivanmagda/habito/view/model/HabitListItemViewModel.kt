@@ -16,11 +16,11 @@ class HabitListItemViewModel(val context: Context, var habit: Habit? = null) {
     val habitName: String
         get() = habit!!.record.name
 
-    // TODO: 'getColor(Int): Int' is deprecated.
     val habitNameTextColor: Int
         get() {
             val color = habit?.record?.color
             return if (color == Color.WHITE) {
+                // TODO: 'getColor(Int): Int' is deprecated.
                 context.resources.getColor(R.color.primary_text)
             } else {
                 Color.WHITE

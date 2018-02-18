@@ -5,13 +5,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.TaskStackBuilder
+// TODO: 'WakefulBroadcastReceiver' is deprecated.
 import android.support.v4.content.WakefulBroadcastReceiver
 import com.ivanmagda.habito.activity.DetailHabitActivity
 import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.util.NotificationUtils
 import com.ivanmagda.habito.util.ReminderUtils
-
-// TODO: 'WakefulBroadcastReceiver' is deprecated.
 
 /**
  * An [IntentService] subclass for handling asynchronous task requests in
@@ -27,6 +26,7 @@ class ReminderIntentService : IntentService(ReminderIntentService::class.java.si
             }
         } finally {
             if (intent != null) {
+                // TODO: 'WakefulBroadcastReceiver' is deprecated.
                 WakefulBroadcastReceiver.completeWakefulIntent(intent)
             }
         }

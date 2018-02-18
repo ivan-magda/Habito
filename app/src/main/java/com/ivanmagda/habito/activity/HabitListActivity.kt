@@ -140,8 +140,12 @@ class HabitListActivity : AppCompatActivity(), HabitsAdapter.OnClickListener {
                         AuthUI.getInstance()
                                 .createSignInIntentBuilder()
                                 .setIsSmartLockEnabled(false)
+                                // TODO: 'setProviders((Mutable)List<AuthUI.IdpConfig!>): AuthUI.SignInIntentBuilder!' is deprecated.
                                 .setProviders(Arrays.asList<AuthUI.IdpConfig>(
+                                        // TODO: 'constructor Builder(String)' is deprecated.
+                                        // TODO: 'EMAIL_PROVIDER: String' is deprecated.
                                         AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                        // TODO: 'GOOGLE_PROVIDER: String' is deprecated.
                                         AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())
                                 ).build(),
                         RC_SIGN_IN)
