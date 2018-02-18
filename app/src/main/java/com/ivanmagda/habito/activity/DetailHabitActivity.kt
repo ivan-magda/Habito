@@ -59,10 +59,12 @@ class DetailHabitActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RC_EDIT_HABIT && resultCode == Activity.RESULT_OK) {
-            habit = data.getParcelableExtra(EditHabitActivity.EDIT_HABIT_RESULT)
-            updateUI()
+            data?.let {
+                habit = data.getParcelableExtra(EditHabitActivity.EDIT_HABIT_RESULT)
+                updateUI()
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
