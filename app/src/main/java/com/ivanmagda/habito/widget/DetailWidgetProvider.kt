@@ -85,6 +85,7 @@ class DetailWidgetProvider : AppWidgetProvider() {
         val intent = Intent(context, DetailWidgetRemoteViewsService::class.java)
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
+        // TODO: 'setRemoteAdapter(Int, Int, Intent!): Unit' is deprecated.
         views.setRemoteAdapter(appWidgetId, R.id.widget_list, intent)
     }
 

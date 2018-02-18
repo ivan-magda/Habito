@@ -149,6 +149,7 @@ class EditHabitActivity : AppCompatActivity(), TimePickerFragment.OnTimeSetListe
         timePickerFragment.show(supportFragmentManager, "TimePicker")
     }
 
+    // TODO: 'getColor(Int): Int' is deprecated.
     private fun showColorPicker() {
         val colorPicker = ColorPicker(this)
         colorPicker.setDefaultColorButton(editingHabit.record.color)

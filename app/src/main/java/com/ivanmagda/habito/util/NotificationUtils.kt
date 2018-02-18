@@ -58,6 +58,7 @@ class NotificationUtils(context: Context) : ContextWrapper(context) {
         manager.createNotificationChannel(channel)
     }
 
+    // TODO: 'constructor Builder(Context!)' is deprecated.
     fun getNotification(title: String = getString(R.string.app_name), contentText: String, color: Int): NotificationCompat.Builder {
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             NotificationCompat.Builder(applicationContext, CHANNEL_ID)

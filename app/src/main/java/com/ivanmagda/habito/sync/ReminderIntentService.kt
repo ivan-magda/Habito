@@ -11,6 +11,8 @@ import com.ivanmagda.habito.model.Habit
 import com.ivanmagda.habito.util.NotificationUtils
 import com.ivanmagda.habito.util.ReminderUtils
 
+// TODO: 'WakefulBroadcastReceiver' is deprecated.
+
 /**
  * An [IntentService] subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
