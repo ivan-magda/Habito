@@ -48,6 +48,15 @@ class NotificationUtils(context: Context) : ContextWrapper(context) {
         }
     }
 
+    fun getNotification(title: String = getString(R.string.app_name), contentText: String, color: Int): NotificationCompat.Builder {
+        return NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText(contentText)
+                .setColor(color)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private fun createChannels() {
         val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
@@ -58,20 +67,6 @@ class NotificationUtils(context: Context) : ContextWrapper(context) {
         manager.createNotificationChannel(channel)
     }
 
-    fun getNotification(title: String = getString(R.string.app_name), contentText: String, color: Int): NotificationCompat.Builder {
-        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-        else
-        // TODO: 'constructor Builder(Context!)' is deprecated.
-            NotificationCompat.Builder(applicationContext)
-
-        builder.setContentTitle(title)
-                .setContentText(contentText)
-                .setColor(color)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setAutoCancel(true)
-
-        return builder
     }
 
     companion object {
