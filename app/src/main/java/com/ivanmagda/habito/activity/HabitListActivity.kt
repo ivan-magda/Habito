@@ -260,10 +260,10 @@ class HabitListActivity : AppCompatActivity(), HabitsAdapter.OnClickListener {
     }
 
     companion object {
-        private val TAG = "HabitListActivity"
+        private const val TAG = "HabitListActivity"
 
-        private val NUM_OF_COLUMNS = 2
-        private val SPACE_BETWEEN_ITEMS = 32
-        private val RC_SIGN_IN = 10
+        private const val NUM_OF_COLUMNS = 2
+        private const val SPACE_BETWEEN_ITEMS = 32
+        private const val RC_SIGN_IN = 10
     }
 }
