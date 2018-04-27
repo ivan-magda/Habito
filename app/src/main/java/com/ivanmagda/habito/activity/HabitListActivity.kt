@@ -90,8 +90,8 @@ class HabitListActivity : AppCompatActivity(), HabitsAdapter.OnClickListener {
             } else {
                 when {
                     response == null -> showToast(R.string.auth_canceled_msg)
-                    response.errorCode == ErrorCodes.NO_NETWORK -> showToast(R.string.no_internet_connection)
-                    response.errorCode == ErrorCodes.UNKNOWN_ERROR -> showToast(R.string.unknown_error)
+                    response.error?.errorCode == ErrorCodes.NO_NETWORK -> showToast(R.string.no_internet_connection)
+                    response.error?.errorCode == ErrorCodes.UNKNOWN_ERROR -> showToast(R.string.unknown_error)
                 }
                 finish()
             }
