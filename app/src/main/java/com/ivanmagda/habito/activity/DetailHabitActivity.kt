@@ -157,7 +157,7 @@ class DetailHabitActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onCreateLoader(id: Int, args: Bundle): Loader<HabitoBarChartDataSource> {
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<HabitoBarChartDataSource> {
         return HabitoBarChartDataLoader(this, habit, barChartRange)
     }
 
