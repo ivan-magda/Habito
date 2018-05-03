@@ -1,0 +1,66 @@
+{
+  "project_info": {
+    "project_number": "931256015025",
+    "firebase_url": "https://habito-1122b.firebaseio.com",
+    "project_id": "habito-1122b",
+    "storage_bucket": "habito-1122b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931256015025:android:8a713900c4d488c0",
+        "android_client_info": {
+          "package_name": "com.ivanmagda.habito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931256015025-kpukkd32sjut82ag63uj4olvlh2divk4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ivanmagda.habito",
+            "certificate_hash": "42fce2ad9209aeb3adeaa526f24d6ec97ad4d604"
+          }
+        },
+        {
+          "client_id": "931256015025-luuauno40b3236pufm9jon704d7h8pep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ivanmagda.habito",
+            "certificate_hash": "cf82e684ed80fdc1daf66a62132f600997c72d05"
+          }
+        },
+        {
+          "client_id": "931256015025-ih0s13ph9urjacpdkh0uqbape4865o1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAujPGYqwWyYTfTPwzlfSEwGB0hGFOaBX4"
+        },
+        {
+          "current_key": "AIzaSyC0cFhpLIDCEEcH6QSAmKw6Qtpscz7DQLc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931256015025-ih0s13ph9urjacpdkh0uqbape4865o1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

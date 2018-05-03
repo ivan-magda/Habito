@@ -38,7 +38,7 @@ keystore.properties
 .externalNativeBuild
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+# google-services.json
 
 # Other
 .DS_Store
