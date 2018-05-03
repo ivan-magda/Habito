@@ -49,10 +49,10 @@ dependencies {
     // GMS
     implementation 'com.google.android.gms:play-services-auth:15.0.0'
     // Firebase
-    implementation 'com.google.firebase:firebase-core:15.0.0'
+    implementation 'com.google.firebase:firebase-core:15.0.2'
     implementation 'com.google.firebase:firebase-database:15.0.0'
     implementation 'com.google.firebase:firebase-auth:15.0.0'
-    implementation 'com.google.firebase:firebase-messaging:15.0.0'
+    implementation 'com.google.firebase:firebase-messaging:15.0.2'
     implementation 'com.firebaseui:firebase-ui-auth:3.3.1'
     // MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
