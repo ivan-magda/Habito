@@ -19,7 +19,7 @@ build/
 
 # Configuration file (sdk path, etc)
 local.properties
-keystore.properties
+# keystore.properties
 
 # Log Files
 *.log
