@@ -209,7 +209,7 @@ class HabitListActivity : AppCompatActivity(), HabitsAdapter.OnClickListener {
             }
         }
 
-        userHabitsQuery!!.addValueEventListener(valueEventListener)
+        userHabitsQuery!!.addValueEventListener(valueEventListener as ValueEventListener)
     }
 
     private fun detachDatabaseReadListener() {

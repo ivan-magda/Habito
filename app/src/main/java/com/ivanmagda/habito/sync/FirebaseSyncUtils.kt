@@ -35,10 +35,10 @@ object FirebaseSyncUtils {
     }
 
     fun applyChangesForHabit(habit: Habit) {
-        habitsReference.child(habit.id).setValue(habit.record)
+        habitsReference.child(habit.id!!).setValue(habit.record)
     }
 
     fun deleteHabit(habit: Habit) {
-        habitsReference.child(habit.id).setValue(null)
+        habitsReference.child(habit.id!!).setValue(null)
     }
 }

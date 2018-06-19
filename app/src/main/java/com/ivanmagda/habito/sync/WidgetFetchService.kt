@@ -47,7 +47,7 @@ class WidgetFetchService : Service() {
                 override fun onCancelled(databaseError: DatabaseError) {}
             }
 
-            mUserHabitsQuery!!.addListenerForSingleValueEvent(mValueEventListener)
+            mUserHabitsQuery!!.addListenerForSingleValueEvent(mValueEventListener as ValueEventListener)
         }
     }
 
